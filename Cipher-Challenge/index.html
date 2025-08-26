@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The National Cipher Challenge</title>
+  <link href="/Assets/Images/icon.png" rel="icon" type="image/png" media="all">
+  <link href="./ncc.css" rel="stylesheet" type="text/css" media="all">
+  <script src="./ncc.js"></script>
+</head>
+
+<body>
+  <div class="ncc">
+    <div class="ncc-overlay">
+      <p id="ncc-title" onmouseover="glitchEffect('ncc-title', 0.5)">The National Cipher Challenge</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="ncc" id="p1">
+      <div class="ncc-overlay">
+        <p class="ncc-text" id="text1" onmouseover="glitchEffect('text1', 5)">The National Cipher Challenge is an annual event hosted by the University of Southampton. It takes place over 10 weeks and consists of over 7,500 participants decrypting different kinds of ciphers. Each week, they release two different types of cipher to solve, and the faster you solve it, the higher you rank. This has roots in both maths and computer science!</p>
+      </div>
+    </div>
+
+    <div id="portrait-div" class="img-div">
+      <img id="portrait" class="img"
+        src="https://media.discordapp.net/attachments/1046080170022404229/1251951341484642404/AP1GczMKWZsszOAvq2wqxXcXpKqgHeMszN2JMdQr9qMu_IulmCUAqKyJ8LrptyootUeaLLfUdAlZySW1f03tRT80EEh4VzIQqHjY7qHAN1gPekQC4rFfccF2LA50Yt2T8e8xOeBxenIBWTg_kGD-HkUfAUU2d63E2cSTCX5Tjuqy93YpHub19N-FAvASiY7x_o5LX2Jxfh0QRJA1m0sA9XsVTbsVF9ymawRfwO9P-TdSkKU1W2mkh2VWGoK-nf6xScVawGNXZKgSspu45BZu6IesG_EabG7A7mDeybjnI49CY2H5txfqj3bHVRFfKsweGHwyHsGKApgzATT1D4NLmVOyVjxx1Ab8AT_onlHheSKfU3rJoYoXtxrnFVlTstoG2JdK_OVfgTGgmnlDREQesAmP_44x4m7uYWPVbyVePv4JsAPT6NSqqVYieQmwrbnVZIwdic-Z0U4kAL5iMxkR2Vjq5USYv7V7iq9hykd1FsOjGsTmics1tmz-YaUQ..png?ex=6670720b&is=666f208b&hm=3e811d661b2781cf0747255af247437bbe4ed6177bde92efd93817c7799810f5&=&format=webp&quality=lossless&width=438&height=583"></img>
+    </div>
+  </div>
+
+  <div>
+    <div class="ncc" id="p2">
+      <div class="ncc-overlay">
+        <p class="ncc-text" id="text2" onmouseover="glitchEffect('text2', 3)">I won the GCHQ prize in the National Cipher Challenge in 2023, and I coded some cipher tools in JavaScript that will automatically decipher or encipher any text put into it!</p>
+
+        <p class="ncc-text" id="text3" onmouseover="glitchEffect('text3', 3)">The tool below measures the frequency of each letter in some text, and it can help you to identify the type of cipher a piece of text is encrypted with. You can start by typing some text into box at the top of the frame.</p>
+      </div>
+    </div>
+
+    <div id="cert-div" class="img-div">
+      <img id="certificates" class="img"
+        src="https://media.discordapp.net/attachments/1046080170022404229/1251951428432433172/AP1GczMe14fQVOI3E50UDuF6zYYD2BLwoHbPCvEOfcCY4VKjKNUvrdfhLLWjnb9AW9m6RbP0fcrZEzifWfkG04-PifOneBnSclLyz2sSAl6oEDZ0vabnymYIZudJiBq3F50hmKWH1V57KVThxlLpt6UpgRxzsbTK_ZScasLL3zyE5JXdkjrkQ76xRrIw14sZsDjVrZ_Xagd3E13e7DbPs907eaJrCe2dZX-uvOLeJLjFccgQuolSE_u5pPS1HQvVQP8uNCLRpjutqreTggViAidmXuAhv4RZr5zPxQDdkq1ECRZDA9atLruZyjbfhXE3zpd0o6kwR7Py3wHYup-4bAZcpZIjYR1QJyRP0xQvlxU_VVWOOs3E5lN7L1QWGjVntFj-SoZE0S7sklx08e9zSxrTte31_iLqnmY7Zuf4vgWZGDRMZ-Cr52yH5cqtbrEBb2mc2cthDBEIdfbKElZaWR1wXaQOFJ1tDo6ptyK8TvSLzphU0sFlTPlSUz3a..png?ex=66707220&is=666f20a0&hm=aacc32a5989975da800bf62f1e0b8f9681e5321a64bbd0f1f0feaa6089943104&=&format=webp&quality=lossless&width=777&height=583"></img>
+    </div>
+  </div>
+
+  <iframe id="monogram" frameborder="0" src="https://itch.io/embed-upload/14733398?color=333333" allowfullscreen="" width="640" height="380"><a href="https://lawsonlam.itch.io/monogram-analysis">Play Monogram Analysis on itch.io</a></iframe>
+
+  <div id="docs-div" class="ncc-overlay">
+    <a id="docs-link" target="_blank"
+      href="https://docs.google.com/document/d/1RB_4acf6kfMwnSgWqhKTLig_tsqQEYiPCH7hWfszdPc/edit?usp=sharing">
+      <p id="textDocs" class="ncc-text" onmouseover="glitchEffect('textDocs', 3)">Click here for my documentation of this year's challenges!</p>
+    </a>
+  </div>
+
+  <div id="link-bar">
+    <div class="logo-div" id="open-div">
+      <div class="ncc-overlay" id="open-overlay">
+        <a href="https://openprocessing.org/user/406942/?view=sketches&o=10" target="_blank">
+          <img id="open-img" class="img-link"
+            src="https://members-csforall.imgix.net/members/logos/logo-200x200-color-at-2x.png"></img>
+        </a>
+      </div>
+    </div>
+
+    <div id="text-div" class="ncc-overlay">
+      <p id="textOpen" class="ncc-text" onmouseover="glitchEffect('textOpen', 3)">For more tools, click the left icon.
+      </p>
+      <p id="textGit" class="ncc-text" onmouseover="glitchEffect('textGit', 3)">For the code, click the right icon.</p>
+    </div>
+
+    <div class="logo-div" id="github-div">
+      <div class="ncc-overlay" id="github-overlay">
+        <a href="https://github.com/Pararcana/Cipher-Tools" target="_blank">
+          <img id="github-img" class="img-link"
+            src="https://logos-download.com/wp-content/uploads/2016/09/GitHub_logo.png"></img>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

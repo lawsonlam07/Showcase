@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Arcana</title>
+  <link href="./tarokrypt.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="icon" href="/Assets/Images/icon_tarokrypt.png" type="image/x-icon">
+  <script src="./crypto.js"></script>
+  <script src="./verify.js"></script>
+</head>
+
+<body>
+  <div class="infoBox">
+    <h1 id="main-title"
+      data-ciphertext="U2FsdGVkX1+VRhnr5036UcX3HgtKeZX7yiNrlD1Jp+Zfc7XO14Sc2mXly0SDSGx4c5pOlFSO8TdkKIyIkYnmOb+cXO01s9iFyzZ8b5/a2Ww=">
+      XXII - The Arcana</h1>
+    <hr>
+    <h2>Is the existence of this stage blasphemous?</h2>
+    <p>The Arcana embodies the mysteries within your journey, that which is yet to be unravelled.</p>
+  </div>
+
+  <div class="challenges">
+    <h3>Description</h3>
+    <p>We're all mathematicians around here, aren't we?</p>
+    <p>Good luck. You'll need it.</p>
+  </div>
+
+  <div class="challenges">
+    <h3>The Challenge</h3>
+    <p>[insert latex here]</p>
+  </div>
+
+  <div class="verify">
+    <h3>Answer</h3>
+    <p>The answer is case sensitive!</p>
+    <div>
+      <form onsubmit="return verify();">
+        <input id="inputButton" type="text"><input id="submitButton" type="submit">
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

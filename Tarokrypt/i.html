@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Magician</title>
+  <link href="./tarokrypt.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="icon" href="/Assets/Images/icon_tarokrypt.png" type="image/x-icon">
+  <script src="./crypto.js"></script>
+  <script src="./verify.js"></script>
+</head>
+
+<body>
+  <div class="infoBox">
+    <h1 id="main-title"
+      data-ciphertext="U2FsdGVkX1+GrA3rxJQ6aQdkoYTKwryXOEXiL8bBaGz1urlJquJEAXwZIq5wNQexjXn3+xxFVKh0dvWQSSYwCalrlDkOoGUF5suVPbqi/uA=">
+      I - The Magician</h1>
+    <hr>
+    <h2>Is magic just a clever trick that we are yet to comprehend?</h2>
+    <p>The Magician stands at the crossroads of the seen and unseen, weaving potential into reality.</p>
+  </div>
+
+  <div class="challenges">
+    <h3>The Challenge</h3>
+    <p>The answer is a unique 4 digit code, where no digit is repeated. To aid you, you are given the following 6 statements about similar codes:</p>
+    <p class="left">4563 | Two digits are shared but all are misplaced.</p>
+    <p class="left">0482 | One digit is shared and in the right position.</p>
+    <p class="left">8715 | One digit is shared but is misplaced.</p>
+    <p class="left">1984 | Two digits are shared and one is in the right position.</p>
+    <p class="left">6942 | At least one digit is shared and one is in the right position.</p>
+    <p>Here's one final hint that has been enciphered! It is not necessary to uniquely determine the code, but makes it significantly easier. Only the text, and NOT the digits, has been encoded.</p>
+    <p class="left">1027 | Nyy qvtvgf ner vapbeerpg.</p>
+    <p>Note that 'shared' refers to the same digit existing in both the example and the correct code.</p>
+  </div>
+
+  <div class="verify">
+    <h3>Answer</h3>
+    <p>The answer is case sensitive!</p>
+    <div>
+      <form onsubmit="return verify();">
+        <input id="inputButton" type="text"><input id="submitButton" type="submit">
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wheel of Fortune</title>
+  <link href="./tarokrypt.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="icon" href="/Assets/Images/icon_tarokrypt.png" type="image/x-icon">
+  <script src="./crypto.js"></script>
+  <script src="./verify.js"></script>
+</head>
+
+<body>
+  <div class="infoBox">
+    <h1 id="main-title">X - Wheel of Fortune</h1>
+    <hr>
+    <h2>Is life just a lucky draw?</h2>
+    <p>The Wheel of Fortune favors none but bestows its gifts freely and unpredictably.</p>
+  </div>
+
+  <div class="infoBox">
+    <h3>Description</h3>
+    <p>Do you like the New York Times games?</p>
+  </div>
+
+  <div class="challenges">
+    <h3>Wordle</h3>
+    <img src="https://i.imgur.com/OPkarCz.png">
+    <p>Wait... Something doesn't seem right. I know I'm terrible at Wordle, but isn't this a little too far?</p>
+    <p>Help me find the word with my one remaining guess... PLEASE!</p>
+    <p>Ciphertext: 33 14 32 41 22 54 53 42</p>
+  </div>
+
+  <div class="challenges">
+    <h3>A Familiar Base</h3>
+    <p>It's just a burning memory...</p>
+    <p>Ciphertext: MF2A====</p>
+    <p>This wasn't half what it used to be.</p>
+  </div>
+
+  <div class="challenges">
+    <h3>Elemental Ether</h3>
+    <p>I want you to solve this, period.</p>
+    <p>Ciphertext: 16, 1, 53, 10</p>
+  </div>
+
+  <div class="challenges">
+    <h3>An Eponymous Challenge</h3>
+    <p>I forgot... What's this collection of challenges called again?</p>
+    <p>Ciphertext: jiwky</p>
+    <p>Hint: Default settings on Cryptii</p>
+  </div>
+
+  <div class="challenges">
+    <h3>Bonus Problem</h3>
+    <p>Deciphering this one isn't necessary, but are you up to the task?</p>
+    <p>It looks like I've hid it for real this time, it doesn't seem like it's anywhere on this page...</p>
+  </div>
+
+  <div class="verify">
+    <h3>Answer</h3>
+    <p>Let's hope you get it right!</p>
+    <div id="answer">
+      <form onsubmit="return verify()"><input id="inputButton" type="text"><input id="submitButton" type="submit">
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

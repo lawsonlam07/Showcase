@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css?family=Kode+Mono");
+
+body {
+    background-color: #282828;
+    background-image: url("https://files.catbox.moe/o2xqt6.png");
+    background-size: cover;    
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+#ncc-title {
+    font-family: "Kode Mono", monospace;
+    margin: 0px;
+    text-align: center;
+    color: #05DF17;
+    -webkit-text-stroke: 3px #2D4424;
+}
+
+#p1 {
+    float: left;
+    margin-top: 3rem;
+    width: 60%;
+}
+
+#p2 {
+    margin-top: 3rem;
+    float: right;
+    width: 60%;
+}
+
+#monogram {
+    margin-left: 8vw;
+    margin-top: 3rem;
+    width: 80vw;
+    height: 90vh;
+    border-radius: 1rem;
+    border: 5px solid #0e6b0e;
+}
+
+#portrait-div {
+    float: right;
+    width: 35%;
+    max-width: 35%;
+    height: auto;
+    margin-top: 3rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    object-fit: cover;
+    border: 5px solid #0e6b0e;
+}
+
+#portrait {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+#cert-div {
+    margin-top: 3rem;
+    float: left;
+    width: 35%;
+    max-width: 35%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 1rem;
+    object-fit: cover;
+    display: block;
+    border: 5px solid #0e6b0e;
+}
+
+#certificates {
+    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#portrait:hover, #certificates:hover, #open-img:hover, #github-img:hover {
+    animation: pulse 800ms ease-in-out;
+}
+
+#link-bar {
+    width: 95%;
+}
+
+#textOpen, #textGit {
+    text-align: center;
+}
+
+#open-overlay, #github-overlay {
+    width: 100%;
+    height: 100%;
+}
+
+#open-div {
+    border: 5px solid #0e6b0e;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+    float: left;
+}
+
+#github-div {
+    border: 5px solid #0e6b0e;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+    float: right;
+}
+
+#text-div {
+    border: 5px solid #0e6b0e;
+    position: absolute;
+    margin-left: 1vw;
+    border-radius: 1rem;
+    float: left;
+}
+
+#docs-div {
+    margin-top: 3rem;
+    border: 5px solid #0e6b0e;
+    border-radius: 1rem;
+}
+
+#docs-link {
+    text-decoration: none;
+}
+
+
+#textDocs {
+    text-align: center;
+}
+
+.logo-div {
+    width: 5rem;
+    height: 5rem;
+    overflow: hidden;
+}
+
+#link-bar {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+.img-link {
+    object-fit: fill;
+    height: 100%;
+    width: 100%;
+}
+
+.ncc-text {
+    padding: 1rem;
+    font-family: "Kode Mono", monospace;
+    margin: 0px;
+    text-align: left;
+    font-size: 2rem;
+    color: #AAFD1A;
+    -webkit-text-stroke: 1px #2D4424;
+}
+
+.ncc {
+    left: 2%;
+    width: 99%;
+    height: 100%;
+    color: #61c192;
+    overflow: hidden;
+    font-size: 5rem;
+    border-radius: 1rem;
+    border: 5px solid #0e6b0e;
+    font-family: "Kode Mono", monospace;
+}
+
+.ncc-overlay {
+    background: linear-gradient(
+        rgba(60, 80, 60, 0.75),
+        rgba(60, 80, 60, 0.75) 3px,
+        rgba(40, 50, 40, 0.75) 3px,
+        rgba(40, 50, 40, 0.75) 9px
+    );
+    background-size: 100% 9px;
+    animation: pan-overlay 15s infinite linear;
+}
+
+@keyframes pan-overlay {
+    from {background-position: 0% 0%}
+    to {background-position: 0% 100%}
+}
+
+@keyframes pulse {
+    from, to {scale: 1; filter: grayscale(0%)}
+    50% {scale: 1.1; filter: grayscale(100%)}
+}

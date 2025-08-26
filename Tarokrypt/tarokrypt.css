@@ -1,0 +1,118 @@
+@font-face {
+    font-family: Kode;
+    src: url("/Assets/Fonts/Kode Mono.ttf");
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url("/Assets/Fonts/Montserrat.ttf");
+}
+
+@font-face {
+    font-family: Quicksand;
+    src: url("/Assets/Fonts/Quicksand Regular.ttf");
+}
+
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url("/Assets/Images/stripes.png");
+    background-attachment: fixed;
+    background-size: 25vh;
+    background-color: #111;
+    font-family: Quicksand, Arial, sans-serif;
+    color: #E7DDFF;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    overscroll-behavior: none;
+}
+
+.infoBox, .challenges, .verify {
+    background-color: #444;
+    border: 2px solid #333;
+    border-radius: 10px;
+    width: 60%;
+    margin: 50px auto;
+    padding: 20px;
+    box-shadow: 0px 0px 25px 10px black;
+}
+
+#main-title {
+    font-family: Kode, Courier, monospace;
+    text-shadow: 2px 2px black;
+    color: #CC00FF;
+    text-align: center;
+    font-size: 3em;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;  
+    border-radius: 2.5%;
+}
+
+h2, h3 {
+    font-family: Montserrat, Courier, monospace;
+    color: #CC6CE7;
+}
+
+hr {
+    width: 75%;
+    height: 5px;
+    margin-bottom: 50px;
+    background-color: #666;
+    border-radius: 5px;
+    border-style: none;
+    box-shadow: 0px 0px 5px #111;
+}
+
+#answer {
+    display: block;
+    text-align: center;
+}
+
+.left {
+    margin-left: 10%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: left;
+}
+
+form {
+    width: 60%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;    
+}
+
+input[type=submit] {
+    font-family: Kode, Courier, monospace;
+    background-color: #CC00FF;
+    width: 100%;
+    margin: 8px;
+    padding: 15px;
+    color: white;
+    border: none;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=text] {
+    font-family: Kode, Courier, monospace;
+    text-align: inherit;
+    background-color: #555;
+    width: 100%;
+    margin: 8px;
+    padding: 15px;
+    color: #E7DDFF;
+    display: inline-block;
+    font-size: 15px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
