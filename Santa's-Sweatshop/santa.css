@@ -100,10 +100,6 @@ header {
 
 #play-icon {
   image-rendering: auto;
-  height: 50px;
-  width: 50px;
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 #trailer {
@@ -136,6 +132,7 @@ header {
 }
 
 .screenshots {
+  image-rendering: auto;
   display: inline-block;
   max-width: 100%;
 }
