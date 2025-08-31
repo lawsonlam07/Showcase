@@ -1,4 +1,4 @@
-tsParticles.load("ts", {
+tsParticles.load("snow-particles", {
     particles: {
         shape: {
             type: "image",
@@ -14,31 +14,22 @@ tsParticles.load("ts", {
         },
 
         rotate: {
-            value: { min: 0, max: 360 }, // initial rotation angle
+            value: { min: 0, max: 360 },
             random: true,
-            direction: "random", // or "counter-clockwise"
+            direction: "random",
             animation: {
                 enable: true,
-                speed: { min: 5, max: 25 }, // degrees per second
-                sync: false // each particle rotates independently
+                speed: { min: 5, max: 25 },
+                sync: false
             }
         },
 
         move: {
             enable: true,
-            direction: "bottom", // 👈 makes them fall
+            direction: "bottom",
             speed: { min: 1, max: 3 },
-            // angle: {
-            //     value: 10, // slight angle for horizontal drift
-            //     offset: 20 // adds variation to the angle
-            // },
-            // path: {
-            //     enable: true,
-            //     delay: { value: 0 },
-            //     generator: "curve" // or "curve" for smoother sway
-            // },
             outModes: {
-                default: "out" // particles disappear when they reach the bottom
+                default: "out"
             }
         },
 
