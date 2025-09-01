@@ -1,4 +1,4 @@
-// const container = document.querySelector('.container');
+// const container = document.querySelector('.screenshots');
 // const itemWidth = container.offsetWidth;
 
 // container.addEventListener('scroll', () => {
