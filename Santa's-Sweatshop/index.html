@@ -3,9 +3,12 @@
 <!-- (Embed) Slash and hack your way through presents to save Christmas! -->
 <!-- Force landscape mode on mobile -->
 <!-- Image popout -->
+<!-- Add icicles to header -->
+<!-- Horizontal image scroll snap-on -->
 <head> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="My game called Santa's Sweatshop, inspired by Fruit Ninja for the Winter Melon Game Jam 2023! Slash and hack your way through presents to save Christmas!">
   <title>Santa's Sweatshop</title>
   <link href="santa.css" rel="stylesheet" type="text/css" media="all">
   <link rel="icon" href="/Assets/Images/icon_santa.png" type="image/x-icon">
@@ -35,7 +38,7 @@
   </a>
 
   <div id="description">
-    <p>Santa's Sweatshop was a 3-day programming project I undertook for the "Winter Melon Jam 2023".</p>
+    <p>This game was <span class="warning">NOT</span> built for mobile devices and may not work properly.</p>
   </div>
 
   <video id="trailer" poster="Game/Promo/thumbnail.webp" controls>
@@ -44,11 +47,14 @@
   <img id="icicles" src="Game/Buttons/ice.png" alt="Icicles decoration">
 
   <div id="content">
-    <div id="information" class="side-container">
+    <div id="information">
       <h2>Introduction</h2>
-      <p>Santa's Sweatshop was a 3-day programming project I undertook for the "Winter Melon Jam 2023".</p>
-      <p><a href="https://docs.google.com/spreadsheets/d/1fd7Cw_wsx3AoEoxcf8bwi4Cg9DqlHzhD0a5teLGzeqg/edit#gid=648574884" target="_blank" rel="nofollow noopener" referrerpolicy="origin">WMJ23 Feedback</a>&nbsp;[This game&#x27;s feedback is under Novice (I-X). You may need to zoom out.]</p>
-      <p>The only assets not made by me nor within the time limit are:&nbsp;</p>
+      <p>Santa's Sweatshop was a 72-hour programming project I undertook for the Winter Melon Jam 2023.
+        This involved planning the concept for the game, programming the logic and drawing the pixel art assets.
+      </p>
+      <h2>Results</h2>
+      <p>This game won <a href="https://docs.google.com/spreadsheets/d/1fd7Cw_wsx3AoEoxcf8bwi4Cg9DqlHzhD0a5teLGzeqg" target="_blank" rel="nofollow noopener" referrerpolicy="origin">Judges' Choice</a> in the Novice section of the competition.</p>
+      <p>The only assets not made by me nor within the time limit are:</p>
       <ul><li>The song [<a href="https://www.youtube.com/watch?v=TrpvIcX2BkA" target="_blank" rel="nofollow noopener" referrerpolicy="origin">It&#x27;s Christmas! by KPM</a>]
       </li><li>The SFX
       </li><li>The font (Courier New)
@@ -57,7 +63,7 @@
       <!-- The code was written with p5.js, which is a JavaScript library. -->
     </div>
 
-    <div id="ss-list" class="side-container">
+    <div id="ss-list">
       <img class="screenshots" src="Game/Promo/screenie1.webp" alt="Gameplay screenshot 1 (menu)">
       <img class="screenshots" src="Game/Promo/screenie2.webp" alt="Gameplay screenshot 2 (zen mode)">
       <img class="screenshots" src="Game/Promo/screenie3.webp" alt="Gameplay screenshot 3 (timed mode)">
