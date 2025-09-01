@@ -4,13 +4,6 @@ html {
   image-rendering: pixelated;
   font-family: "Lucida Console", "Courier Prime", monospace;
 } 
-/* 
-    #tsparticles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: -1; 
-    } */
 
 body {
   z-index: 0;
@@ -102,8 +95,11 @@ header {
   image-rendering: auto;
 }
 
+#fullscreen-button {
+  display: none;
+}
+
 #trailer {
-  z-index: 3;
   width: 50%;
   position: relative;
   height: auto;
@@ -115,8 +111,6 @@ header {
 }
 
 #icicles {
-  overflow: visible;
-  z-index: 4;
   left: calc(25% - 2.5px);
   width: calc(50% + 5px);
   height: auto;
@@ -170,7 +164,7 @@ h2 {
   #header-logo {
     padding-top: 2px;
     padding-left: 10px;
-    height: 110%;
+    height: 100%;
   }
 
   header li {
@@ -194,6 +188,10 @@ h2 {
   
   body {
     margin-top: 85px;
+  }
+
+  #fullscreen-button {
+    display: inherit;
   }
   
   p {

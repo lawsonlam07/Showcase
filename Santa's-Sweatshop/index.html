@@ -4,6 +4,7 @@
 <!-- Make play button smaller for performance -->
 <!-- Return to homepage button -->
 <!-- Slash and hack your way through presents to save Christmas! -->
+<!-- Play vs Play game -->
 <head> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,7 @@
   <div id="snow-particles"></div>
   <script src="snow.js"></script>
   <header id="header">
-    <img id="header-logo" src="Game/Buttons/logo.png">
+    <a href=""><img id="header-logo" src="Game/Buttons/logo.png" alt="Game logo"></a>
     <nav id="nav-bar"><ul>
       <li><a class="nav-link" target="_blank" href="Game/">Play</a></li>
       <li><a class="nav-link" target="_blank" href="https://youtu.be/qPBeQ6JcoKI">Trailer</a></li>
@@ -26,9 +27,12 @@
   </header>
 
   <a id="game-link" target="_blank" href="Game">
-    <img id="game" src="Game/Promo/game.webp">
-    <img id="snow" src="Game/Buttons/snow.png">
-    <div id="play-button"><img id="play-icon" src="Game/Buttons/play.webp">Play Game</div>
+    <img id="game" src="Game/Promo/game.webp" alt="Game thumbnail">
+    <img id="snow" src="Game/Buttons/snow.png" alt="Snow decoration">
+    <div id="play-button">
+      <img id="play-icon" src="Game/Buttons/play.webp" alt="Play button">
+      Play<span id="fullscreen-button">Game</span>
+    </div>
   </a>
 
   <div id="contents">
@@ -46,14 +50,14 @@
   <video id="trailer" poster="Game/Promo/thumbnail.webp" controls>
     <source src="Game/Promo/trailer.mp4" type="video/mp4">
   </video>
-  <img id="icicles" src="Game/Buttons/ice.png">
+  <img id="icicles" src="Game/Buttons/ice.png" alt="Icicles decoration">
 
   <div id="ss-list">
-    <img class="screenshots" src="Game/Promo/screenie1.webp">
-    <img class="screenshots" src="Game/Promo/screenie2.webp">
-    <img class="screenshots" src="Game/Promo/screenie3.webp">
-    <img class="screenshots" src="Game/Promo/screenie4.webp">
-    <img class="screenshots" src="Game/Promo/screenie5.webp">
+    <img class="screenshots" src="Game/Promo/screenie1.webp" alt="Gameplay screenshot 1 (menu)">
+    <img class="screenshots" src="Game/Promo/screenie2.webp" alt="Gameplay screenshot 2 (zen mode)">
+    <img class="screenshots" src="Game/Promo/screenie3.webp" alt="Gameplay screenshot 3 (timed mode)">
+    <img class="screenshots" src="Game/Promo/screenie4.webp" alt="Gameplay screenshot 4 (combo demo)">
+    <img class="screenshots" src="Game/Promo/screenie5.webp" alt="Gameplay screenshot 5 (chaos mode)">
   </div>
 
   <div id="homepage-div"><a id="homepage-link" href="../">Return to Homepage</a></div>
