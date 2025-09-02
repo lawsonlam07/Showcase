@@ -360,7 +360,7 @@ function modesMenu() {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(17)
-		let txt = "Zen; a stress-free gamemode with no bombs or time constraints."
+		let txt = "Zen; A stress-free gamemode with no bombs or time constraints."
 		stroke("navy")
 		fill("black")
 		text(txt, mouseX + 7, mouseY + 7, 200, 100)
@@ -369,7 +369,7 @@ function modesMenu() {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(16)
-		let txt = "Blitz; a sprint to acquire 25,000 charm in the fastest time possible."
+		let txt = "Blitz; A sprint to gain 25,000 charm in the fastest time possible."
 		stroke("navy")
 		fill("black")
 		text(txt, mouseX + 7, mouseY + 10, 200, 100)
@@ -395,7 +395,7 @@ function modesMenu() {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(16)
-		let txt = "Survival; bombs kill and spawn more frequently. Try not to die!"
+		let txt = "Survival; Bombs kill and spawn more frequently. Try not to die!"
 		stroke("navy")
 		fill("black")
 		text(txt, mouseX + 7, mouseY + 12, 200, 100)
@@ -408,7 +408,7 @@ function modesMenu() {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(15)
-		let txt = "Chaos; 'Oh, that's not too bad, where's the chaos?... WHAT THE FU-' ['L' -> LDM]"
+		let txt = "Chaos; It's a slippery slope to hell... Embrace Chaos! ['L' => LDM]"
 		stroke("navy")
 		fill("black")
 		text(txt, mouseX + 7, mouseY + 12, 200, 100)
@@ -1126,7 +1126,7 @@ function draw() {
 	currentTime = new Date().getTime()
 	createCanvas(windowWidth, windowHeight)
 	noSmooth()
-	image(buttons["background"], windowWidth/2, windowHeight/2, windowWidth, 128 * windowWidth/128)
+	image(buttons["background"], windowWidth/2, windowHeight/2, max(windowWidth, windowHeight), max(windowWidth, windowHeight))
 	screenShake()
 	textSize(25)
 

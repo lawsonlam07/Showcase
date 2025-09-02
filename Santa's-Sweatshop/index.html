@@ -12,7 +12,7 @@
   <link href="santa.css" rel="stylesheet" type="text/css" media="all">
   <link rel="icon" href="/Assets/Images/icon_santa.png" type="image/x-icon">
   <script src="/Assets/Libraries/tsparticles/renderer.js"></script>
-  <!-- <script src="interactivity.js"></script>  -->
+  <script src="interactivity.js"></script> 
 </head>
 
 <body>
@@ -31,17 +31,16 @@
   <a id="game-link" target="_blank" href="Game">
     <img id="game" src="Game/Promo/game.webp" alt="Game thumbnail">
     <img id="snow" src="Game/Buttons/snow.png" alt="Snow decoration">
-    <div id="play-button" class="nav-link">
+    <button id="play-button" class="nav-link" onclick="fullscreen()">
       <img id="play-icon" src="Game/Buttons/play.webp" alt="Play button">
       Play<span id="fullscreen-button">Game</span>
-    </div>
+    </button>
   </a>
 
   <div id="description">
     <p>This game was <span class="warning">NOT</span> built for mobile devices and may not work properly.</p>
     <p>The concept is heavily inspired by Fruit Ninja</p>
     <p>Use your mouse or finger to slash through presents and save Christmas!</p>
-    <p>On mobile, a press and release both count as a click for some reason, so bear that in mind.</p>
   </div>
 
   <video id="trailer" poster="Game/Promo/thumbnail.webp" controls>
