@@ -1,17 +1,18 @@
+const page = document.documentElement
 function fullscreen() {
-    const elem = document.documentElement
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen()
-    } else if (elem.mozRequestFullscreen) {
-        elem.mozRequestFullscreen()
-    } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen()
-    } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen()
+    if (page.requestFullscreen) {
+        page.requestFullscreen()
+    } else if (page.mozRequestFullscreen) {
+        page.mozRequestFullscreen()
+    } else if (page.webkitRequestFullscreen) {
+        page.webkitRequestFullscreen()
+    } else if (page.msRequestFullscreen) {
+        page.msRequestFullscreen()
     }
 }
 
 document.addEventListener("fullscreenchange", () => {
-  let isFullscreen = document.fullscreenElement !== null;
-  document.querySelector("#game").style.display = isFullscreen ? "block" : "none";
+  let isFullscreen = document.fullscreenElement !== null
+  page.style.overflow = isFullscreen ? "hidden" : "visible"
+  document.querySelector("#game").style.display = isFullscreen ? "block" : "none"
 });

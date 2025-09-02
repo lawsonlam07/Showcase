@@ -70,11 +70,16 @@ h2 {
 #game {
   display: none;
   z-index: 100;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
+  background-image: url("Game/Buttons/background.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 50% 50%;
 }
 
 #game-link {
@@ -116,6 +121,7 @@ h2 {
 }
 
 #play-button {
+  font-family: "Lucida Console", "Courier Prime", monospace;
   display: inline-flex;
   position: absolute;
   left: 50%;
@@ -127,6 +133,7 @@ h2 {
   font-size: 25px;
   color: #ffe8ff;
   background-color: #75a7ec;
+  border: none;
   box-shadow: 0px 0px 3px 3px #0a3b80;
   align-items: center;
   transform: translate(-50%, -50%);
