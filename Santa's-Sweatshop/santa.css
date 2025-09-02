@@ -77,6 +77,32 @@ a {
   font-weight: bolder;
 }
 
+#image-display {
+  display: none;
+  z-index: 50;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(75, 75, 75, 0.5);
+}
+
+#image-container {
+  padding: 1em;
+  left: 50%;
+  top: 50%;
+  height: 50%;
+  position: fixed;
+  background-color: rgb(75, 75, 75);
+  transform: translate(-50%, -50%);
+}
+
+#displayed-image {
+  image-rendering: auto;
+  height: 100%;
+}
+
 #game {
   display: none;
   z-index: 100;
@@ -92,7 +118,7 @@ a {
   background-position: 50% 50%;
 }
 
-#game-link {
+#game-container {
   display: block;
   line-height: 0;
   position: relative;
@@ -128,6 +154,10 @@ a {
   height: auto;
   left: 50%;
   transform: translate(-50%, 0%);
+}
+
+#play-nav {
+  cursor: pointer;
 }
 
 #play-button {
@@ -202,7 +232,11 @@ a {
 }
 
 #information {
-  padding: 20px;
+  padding-right: 10px;
+}
+
+.credits-list {
+  margin: 7.5px;
 }
 
 #ss-list {

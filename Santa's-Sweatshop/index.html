@@ -4,6 +4,7 @@
 <!-- Image popout -->
 <!-- Add icicles to header -->
 <!-- Fix logic in sketch.js -->
+
 <head> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,16 +21,22 @@
   <div id="snow-particles"></div>
   <script src="snow.js"></script>
 
+  <div id="image-display" onclick="disableImage()">
+    <div id="image-container">
+      <img id="displayed-image" src="Game/Promo/screenie1.webp">
+    </div>
+  </div>
+
   <header id="header">
     <a href=""><img id="header-logo" src="Game/Buttons/logo.png" alt="Game logo"></a>
     <nav id="nav-bar"><ul>
-      <li><a class="nav-link" target="_blank" href="Game/">Play</a></li>
+      <li><a id="play-nav" class="nav-link" onclick="fullscreen()">Play</a></li>
       <li><a class="nav-link" target="_blank" href="https://youtu.be/qPBeQ6JcoKI">Trailer</a></li>
       <li><a class="nav-link" target="_blank" href="https://github.com/lawsonlam07/Santas-Sweatshop">GitHub</a></li>
     </ul></nav>
   </header>
 
-  <div id="game-link" target="_blank" href="Game">
+  <div id="game-container">
     <img id="game-thumbnail" src="Game/Promo/game.webp" alt="Game thumbnail">
     <img id="snow" src="Game/Buttons/snow.png" alt="Snow decoration">
     <button id="play-button" class="nav-link" onclick="fullscreen()">
@@ -68,22 +75,21 @@
       <br><h2>Results</h2>
       <p>This game won <a target="_blank" href="https://docs.google.com/spreadsheets/d/1fd7Cw_wsx3AoEoxcf8bwi4Cg9DqlHzhD0a5teLGzeqg">Judges' Choice</a> in the Novice section of the competition.</p>
       <br><h2>Credits</h2>
-      <!-- rewrite -->
       <p>External resources that helped with making the game:</p>
       <ul>
-        <li><a target="_blank" href="https://www.youtube.com/watch?v=TrpvIcX2BkA">KPM - It's Christmas!</a></li>
-        <li><a target="_blank" href="https://pixabay.com/sound-effects/">Pixabay - Sound Effects</a></li>
-        <li><a target="_blank" href="https://p5js.org/">p5.js - Graphics Library</a></li>
+        <li class="credits-list"><a target="_blank" href="https://www.youtube.com/watch?v=TrpvIcX2BkA">KPM - It's Christmas!</a></li>
+        <li class="credits-list"><a target="_blank" href="https://pixabay.com/sound-effects/">Pixabay - Sound Effects</a></li>
+        <li class="credits-list"><a target="_blank" href="https://p5js.org/">p5.js - Graphics Library</a></li>
       </ul>
       <p>This project is open-source and can be viewed on <a target="_blank" href="https://github.com/lawsonlam07/Santas-Sweatshop">GitHub</a>.</p>
     </div>
 
     <div id="ss-list">
-      <img class="screenshots" src="Game/Promo/screenie1.webp" alt="Gameplay screenshot 1 (menu)">
-      <img class="screenshots" src="Game/Promo/screenie2.webp" alt="Gameplay screenshot 2 (zen mode)">
-      <img class="screenshots" src="Game/Promo/screenie3.webp" alt="Gameplay screenshot 3 (timed mode)">
-      <img class="screenshots" src="Game/Promo/screenie4.webp" alt="Gameplay screenshot 4 (combo demo)">
-      <img class="screenshots" src="Game/Promo/screenie5.webp" alt="Gameplay screenshot 5 (chaos mode)">
+      <img class="screenshots" onclick="displayImage(event)" src="Game/Promo/screenie1.webp" alt="Gameplay screenshot 1 (menu)">
+      <img class="screenshots" onclick="displayImage(event)" src="Game/Promo/screenie2.webp" alt="Gameplay screenshot 2 (zen mode)">
+      <img class="screenshots" onclick="displayImage(event)" src="Game/Promo/screenie3.webp" alt="Gameplay screenshot 3 (timed mode)">
+      <img class="screenshots" onclick="displayImage(event)" src="Game/Promo/screenie4.webp" alt="Gameplay screenshot 4 (combo demo)">
+      <img class="screenshots" onclick="displayImage(event)" src="Game/Promo/screenie5.webp" alt="Gameplay screenshot 5 (chaos mode)">
     </div>
   </div>
 

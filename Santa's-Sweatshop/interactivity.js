@@ -1,4 +1,5 @@
 const page = document.documentElement
+
 function fullscreen() {
     if (page.requestFullscreen) {
         page.requestFullscreen()
@@ -9,6 +10,18 @@ function fullscreen() {
     } else if (page.msRequestFullscreen) {
         page.msRequestFullscreen()
     }
+}
+
+function displayImage(e) {
+    let imageScreen = document.getElementById("image-display")
+    let image = document.getElementById("displayed-image")
+    console.log(e.target.src)
+    imageScreen.style.display = "block"
+    image.src = e.target.src
+}
+
+function disableImage() {
+    document.getElementById("image-display").style.display = "none"
 }
 
 document.addEventListener("fullscreenchange", () => {
