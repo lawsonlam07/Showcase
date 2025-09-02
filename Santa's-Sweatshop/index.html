@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <!-- (Embed) Slash and hack your way through presents to save Christmas! -->
-<!-- make it run in full-screen -->
 <!-- Image popout -->
 <!-- Add icicles to header -->
 <!-- Fix logic in sketch.js -->
@@ -17,6 +16,7 @@
 </head>
 
 <body>
+  <embed id="game" type="text/html" src="Game"></embed>
   <div id="snow-particles"></div>
   <script src="snow.js"></script>
 
@@ -29,8 +29,6 @@
     </ul></nav>
   </header>
 
-  <embed id="game" type="text/html" src="Game"></embed>
-
   <div id="game-link" target="_blank" href="Game">
     <img id="game-thumbnail" src="Game/Promo/game.webp" alt="Game thumbnail">
     <img id="snow" src="Game/Buttons/snow.png" alt="Snow decoration">
@@ -41,9 +39,7 @@
   </div>
 
   <div id="description">
-    <p>This game was <span class="warning">NOT</span> built for mobile devices and may not work properly.</p>
-    <p>The concept is heavily inspired by Fruit Ninja</p>
-    <p>Use your mouse or finger to slash through presents and save Christmas!</p>
+    <p>A Fruit Ninja inspired game encompassing 5 unique gamemodes & silly storyline!</p>
   </div>
 
   <video id="trailer" poster="Game/Promo/thumbnail.webp" controls>
@@ -54,22 +50,34 @@
   <div id="content">
     <div id="information">
       <h2>Introduction</h2>
-      <p>Santa's Sweatshop was a 72-hour programming project I undertook for the Winter Melon Jam 2023.
+      <p>
+        Santa's Sweatshop was a 72-hour programming project I undertook for the Winter Melon Jam 2023.
         This involved planning the concept for the game, programming the logic and drawing the pixel art assets.
         <br><br>
         While it was possible to participate as a team, I chose to go solo in order to build my experience in my first ever game jam!
         It taught me the importance of time management and the ability to write quality code quickly under pressure.
       </p>
-      <h2>Results</h2>
+      <br><h2>Guideline</h2>
+      <p>
+        Use your mouse or finger to slash through presents and save Christmas!
+        <br><br>
+        The rules for each gamemode are typically self-explanatory, or explained in the Campaign Gamemode. What are you waiting for? Play now!
+        <br><br>
+        <span class="warning">Notice</span>: It is not recommended to play on mobile and some elements may not display correctly if the screen is too small.
+        <br><br>
+        On keyboard only, <b>the button 'L' activates a low detail mode</b> that can improve performance on lower end devices.
+      </p>
+      <br><h2>Results</h2>
       <p>This game won <a target="_blank" href="https://docs.google.com/spreadsheets/d/1fd7Cw_wsx3AoEoxcf8bwi4Cg9DqlHzhD0a5teLGzeqg">Judges' Choice</a> in the Novice section of the competition.</p>
-      <h2>Credits</h2>
-      <p>The only assets not made by me nor within the time limit are:</p>
-      <ul><li><a target="_blank" href="https://www.youtube.com/watch?v=TrpvIcX2BkA">KPM - It's Christmas!</a>
-      </li><li><a target="_blank" href="https://pixabay.com/sound-effects/">Pixabay - Sound Effects</a>
-      </li><li>The font (Courier New)
-      </li></ul>
-      <!-- If you're wondering, I used pixilart.com to make the art assets. -->
-      <!-- The code was written with p5.js, which is a JavaScript library. -->
+      <br><h2>Credits</h2>
+      <!-- rewrite -->
+      <p>External resources that helped with making the game:</p>
+      <ul>
+        <li><a target="_blank" href="https://www.youtube.com/watch?v=TrpvIcX2BkA">KPM - It's Christmas!</a></li>
+        <li><a target="_blank" href="https://pixabay.com/sound-effects/">Pixabay - Sound Effects</a></li>
+        <li><a target="_blank" href="https://p5js.org/">p5.js - Graphics Library</a></li>
+      </ul>
+      <p>This project is open-source and can be viewed on <a target="_blank" href="https://github.com/lawsonlam07/Santas-Sweatshop">GitHub</a>.</p>
     </div>
 
     <div id="ss-list">
