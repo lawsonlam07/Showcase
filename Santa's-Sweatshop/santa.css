@@ -32,6 +32,15 @@ h2 {
   -webkit-text-stroke: 1px black;
 }
 
+p {
+  font-size: large;
+}
+
+a {
+  font-size: large;
+  color: #0059ff;
+}
+
 #snow-particles {
   position: fixed;
   top: 0;
@@ -52,6 +61,7 @@ h2 {
 }
 
 .nav-link {
+  font-size: xx-large;
   color: #1c73ee;
   text-shadow: 1px 1px black;
   text-decoration: none;
@@ -239,8 +249,7 @@ h2 {
     float: left;
     list-style-type: none;
     padding-top: 5px;
-    padding-right: 25px;
-    font-size: 25px;
+    padding-right: 35px;
   }
   
   body {
