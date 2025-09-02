@@ -466,7 +466,7 @@ function handleList() {
 	}
 	pop()
 }
-
+// revamp logic here because it is hell
 function storyMode() { // day 1
 	if (currentTime <= startStory + 4000) {
 		let txt = "You are an elf, and have recently been promoted to the head of sorting!"

@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <!-- (Embed) Slash and hack your way through presents to save Christmas! -->
-<!-- Force landscape mode on mobile + make it run in full-screen -->
+<!-- make it run in full-screen -->
 <!-- Image popout -->
 <!-- Add icicles to header -->
+<!-- Fix logic in sketch.js -->
 <head> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,14 +29,16 @@
     </ul></nav>
   </header>
 
-  <a id="game-link" target="_blank" href="Game">
-    <img id="game" src="Game/Promo/game.webp" alt="Game thumbnail">
+  <embed id="game" type="text/html" src="Game"></embed>
+
+  <div id="game-link" target="_blank" href="Game">
+    <img id="game-thumbnail" src="Game/Promo/game.webp" alt="Game thumbnail">
     <img id="snow" src="Game/Buttons/snow.png" alt="Snow decoration">
     <button id="play-button" class="nav-link" onclick="fullscreen()">
       <img id="play-icon" src="Game/Buttons/play.webp" alt="Play button">
       Play<span id="fullscreen-button">Game</span>
     </button>
-  </a>
+  </div>
 
   <div id="description">
     <p>This game was <span class="warning">NOT</span> built for mobile devices and may not work properly.</p>
