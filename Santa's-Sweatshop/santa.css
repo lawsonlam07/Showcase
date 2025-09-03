@@ -92,17 +92,14 @@ a {
 }
 
 #image-container {
-  border-radius: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 1em;
   left: 50%;
   top: 50%;
   width: 75vw;
   position: fixed;
-  background-color: rgba(75, 75, 75, 0);
   transform: translate(-50%, -50%);
 }
 
@@ -115,11 +112,15 @@ a {
 }
 
 #displayed-image {
+  z-index: 60;
+  box-shadow: 0px 0px 0em 10px #1b1b1b;
   image-rendering: auto;
   width: 90%;
 }
 
 .image-nav {
+  z-index: 70;
+  box-shadow: 0px 0px 0em 10px #1b1b1b;
   align-self: stretch;
   display: block;
   cursor: pointer;
@@ -128,7 +129,7 @@ a {
   align-items: center;
   line-height: calc(23895vw/728);
   font-size: 4vw;
-  background-color: #e8e8e8;
+  background-color: #2b2b2b;
 }
 
 #game {
@@ -315,10 +316,6 @@ a {
   
   body {
     margin-top: 85px;
-  }
-
-  #image-container {
-    background-color: rgba(75, 75, 75, 1);
   }
 
   #fullscreen-button {
