@@ -7,7 +7,6 @@
 <!-- Fix logic in sketch.js -->
 <!-- Fix concurrent sound playing -->
 
-<!-- Improve screenshot quality -->
 <!-- Image popout with swap (sort out mobile view) -->
 <!-- Resize images using vw -->
 
@@ -27,9 +26,11 @@
   <div id="snow-particles"></div>
   <script src="snow.js"></script>
 
-  <div id="image-display" onclick="disableImage()">
+  <div id="image-display" onclick="disableImage(event)">
     <div id="image-container">
+      <div id="arrow-left" class="image-nav nav-link" onclick="prevImage()">←</div>
       <img id="displayed-image" src="Game/Promo/screenie1.webp">
+      <div id="arrow-right" class="image-nav nav-link" onclick="nextImage()">→</div>
     </div>
   </div>
 
@@ -45,10 +46,10 @@
   <div id="game-container">
     <img id="game-thumbnail" src="Game/Promo/game.webp" alt="Game thumbnail">
     <img id="snow" src="Game/Buttons/snow.png" alt="Snow decoration">
-    <button id="play-button" class="nav-link" onclick="fullscreen()">
+    <div id="play-button" class="nav-link" onclick="fullscreen()">
       <img id="play-icon" src="Game/Buttons/play.webp" alt="Play button">
       Play<span id="fullscreen-button">Game</span>
-    </button>
+    </div>
   </div>
 
   <p id="description">Santa's Sweatshop is a Fruit Ninja inspired game encompassing 5 unique gamemodes & silly storyline!</p>

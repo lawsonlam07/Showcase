@@ -88,23 +88,47 @@ a {
 }
 
 #image-container {
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   padding: 1em;
   left: 50%;
   top: 50%;
   width: 75vw;
-  /* height: 10vw; needs to be picked [aspect ratio * width] */
   position: fixed;
   background-color: rgb(75, 75, 75);
   transform: translate(-50%, -50%);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+#arrow-left {
+  border-radius: 35px 0px 0px 35px;
+}
+
+#arrow-right {
+  border-radius: 0px 35px 35px 0px;
 }
 
 #displayed-image {
   image-rendering: auto;
-  /* position: absolute; */
-  /* height: 100%; */
-  width: 100%;
-  /* left: 50%;
-  top: 50%; */
+  width: 90%;
+}
+
+.image-nav {
+  align-self: stretch;
+  display: block;
+  cursor: pointer;
+  width: 5%;
+  text-align: center;
+  align-items: center;
+  line-height: calc(23895vw/728);
+  font-size: xxx-large;
+  background-color: #e8e8e8;
 }
 
 #game {
@@ -123,6 +147,7 @@ a {
 }
 
 #game-container {
+  pointer-events: none;
   display: block;
   line-height: 0;
   position: relative;
@@ -166,6 +191,7 @@ a {
   font-family: "Lucida Console", "Courier Prime", monospace;
   display: inline-flex;
   position: absolute;
+  cursor: pointer;
   left: 50%;
   top: 50%;
   gap: 10px;
