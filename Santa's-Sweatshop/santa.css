@@ -92,13 +92,13 @@ a {
 }
 
 #image-container {
-  gap: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   left: 50%;
   top: 50%;
+  gap: 10px;
   width: 75vw;
   position: fixed;
   transform: translate(-50%, -50%);
