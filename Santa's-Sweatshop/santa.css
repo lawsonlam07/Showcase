@@ -64,7 +64,11 @@ a {
   color: #1c73ee;
   text-shadow: 1px 1px black;
   text-decoration: none;
-  transition: color 0.25s ease 
+  transition: color 0.25s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .nav-link:hover {
@@ -88,7 +92,7 @@ a {
 }
 
 #image-container {
-  border-radius: 35px;
+  border-radius: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -100,10 +104,6 @@ a {
   position: fixed;
   background-color: rgb(75, 75, 75);
   transform: translate(-50%, -50%);
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 #arrow-left {
