@@ -147,7 +147,6 @@ a {
 }
 
 #game-container {
-  pointer-events: none;
   display: block;
   line-height: 0;
   position: relative;
@@ -215,6 +214,8 @@ a {
 } 
 
 #play-icon {
+  width: 75px;
+  height: 75px;
   image-rendering: auto;
 }
 
