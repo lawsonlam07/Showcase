@@ -53,7 +53,6 @@ a {
 #header-logo {
   display: inline;
   height: 100%;
-  width: auto;
 }
 
 #nav-bar {
@@ -92,7 +91,8 @@ a {
   padding: 1em;
   left: 50%;
   top: 50%;
-  height: 50%;
+  width: 75vw;
+  /* height: 10vw; needs to be picked [aspect ratio * width] */
   position: fixed;
   background-color: rgb(75, 75, 75);
   transform: translate(-50%, -50%);
@@ -100,7 +100,11 @@ a {
 
 #displayed-image {
   image-rendering: auto;
-  height: 100%;
+  /* position: absolute; */
+  /* height: 100%; */
+  width: 100%;
+  /* left: 50%;
+  top: 50%; */
 }
 
 #game {
@@ -125,7 +129,6 @@ a {
   margin-top: 125px;
   margin-bottom: 50px;
   width: 75%;
-  height: auto;
   margin-left: auto;
   margin-right: auto;
   border: 5px solid #e8e8e8;
@@ -151,7 +154,6 @@ a {
 #snow {
   position: absolute;
   width: 100%;
-  height: auto;
   left: 50%;
   transform: translate(-50%, 0%);
 }
@@ -205,7 +207,6 @@ a {
 #trailer {
   width: 66%;
   position: relative;
-  height: auto;
   display: block;
   margin-top: 40px;
   margin-left: auto;
@@ -217,7 +218,6 @@ a {
 #icicles {
   left: calc(17% - 1.5px);
   width: calc(66% + 3px);
-  height: auto;
   position: relative;
 }
 
