@@ -102,7 +102,7 @@ a {
   top: 50%;
   width: 75vw;
   position: fixed;
-  background-color: rgb(75, 75, 75);
+  background-color: rgba(75, 75, 75, 0);
   transform: translate(-50%, -50%);
 }
 
@@ -314,6 +314,10 @@ a {
   
   body {
     margin-top: 85px;
+  }
+
+  #image-container {
+    background-color: rgba(75, 75, 75, 1);
   }
 
   #fullscreen-button {
