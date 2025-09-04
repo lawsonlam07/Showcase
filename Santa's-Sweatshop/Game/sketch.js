@@ -154,6 +154,17 @@ function setup() {
 	songs["xmas"].loop()
 }
 
+function concurrentSFX() {
+	return Object.values(sfx).filter(v => v.isPlaying()).length
+}
+
+function safePlay(id) {
+	if (concurrentSFX() <= 1) {
+		sfx[id].play()
+	}
+}
+
+
 function choice(arr) {
 	let index = Math.floor(Math.random() * arr.length);
 	return arr[index];
@@ -257,7 +268,7 @@ class Present {
 					case "boost": startBoost(); break;
 				}
 			} else {
-				sfx[choice(["rip", "rip1", "rip2"])].play()
+				safePlay(choice(["rip", "rip1", "rip2"]))
 				if (niceList.includes(this.skin.slice(0, -1)) && mode === "story") {
 					honour -= 10
 				}
@@ -293,7 +304,7 @@ class Present {
 }
 
 function initiateMenu() {
-	sfx["click"].play()
+	safePlay("click")
 	mode = "main"
 	menu = "main"
 	campaignGamemode = false
@@ -320,7 +331,7 @@ function mainMenu() {
 }
 
 function initiateModes() {
-	sfx["click"].play()
+	safePlay("click")
 	mode = "modes"
 	menu = "modes"
 	presentArr = []
@@ -452,7 +463,7 @@ function judgement() {
 }
 
 function initiateStory() {
-	sfx["click"].play()
+	safePlay("click")
 	mode = "story"
 	menu = "story"
 	presentArr = []
@@ -692,7 +703,7 @@ const campaign = [
 ]
 
 function resetTimed() {
-	sfx["click"].play()
+	safePlay("click")
 	mode = "timed"
 	menu = "game"
 	presentArr = []
@@ -744,11 +755,11 @@ function addTime() {
 	}
 
 	mouseColor = [200, 200, 200]
-	sfx["time"].play()
+	safePlay("time")
 }
 
 function resetScore() {
-	sfx["click"].play()
+	safePlay("click")
 	presentList = [...Object.keys(presents), ...Object.keys(powerUps)]
 	stopwatch = new Date().getTime()
 	mode = "score"
@@ -791,7 +802,7 @@ function scoreMode() {
 }
 
 function resetSurvival() {
-	sfx["click"].play()
+	safePlay("click")
 	presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
 	lives = 3
 	mode = "survival"
@@ -833,7 +844,7 @@ function survivalMode() {
 }
 
 function resetZen() {
-	sfx["click"].play()
+	safePlay("click")
 	presentList = [...Object.keys(presents), "slowMo", "combo", "boost"]
 	mode = "zen"
 	menu = "game"
@@ -858,7 +869,7 @@ function zenMode() {
 }
 
 function resetChaos() {
-	sfx["click"].play()
+	safePlay("click")
 	presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb"]
 	mode = "chaos"
 	menu = "game"
@@ -918,7 +929,7 @@ function comboCheck() {
 		combo = Math.max(currentTime + 500, combo)
 	} else {
 		if (comboCounter >= 3) {
-			sfx["break"].play()
+			safePlay("break")
 			charm += comboCounter * 100
 			specialText = `=> Combo: +${comboCounter*100} Charm`
 			specialTimer = currentTime + 1500
@@ -934,7 +945,7 @@ function startCombo() {
 	mouseText = "+5 Combo"
 	mouseColor = [245, 161, 66]
 	comboCounter += 5
-	sfx["rage"].play()
+	safePlay("rage")
 	combo = currentTime + 5000
 }
 
@@ -942,7 +953,7 @@ function startSlowMo() {
 	specialText = "=> Slow Motion: 50% Speed"
 	mouseText = "50% Speed"
 	mouseColor = [66, 135, 245]
-	sfx["ice"].play()
+	safePlay("ice")
 	slowMo = currentTime + 5000
 }
 
@@ -958,7 +969,7 @@ function explosion() {
 	}
 	mouseColor = [255, 0, 0]
 	explosionTimer = currentTime + 750
-	sfx["boom"].play()
+	safePlay("boom")
 }
 
 function screenShake() {
@@ -971,7 +982,7 @@ function startBoost() {
 	specialText = "=> Gained Melon: 2.5x Charm per Present"
 	mouseText = "2.5x Charm"
 	mouseColor = [133, 109, 16]
-	sfx["squelch"].play()
+	safePlay("squelch")
 	presentValue = 250
 	boost = currentTime + 5000
 }
