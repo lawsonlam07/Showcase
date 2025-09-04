@@ -4,15 +4,9 @@ let presentArr = [];
 let ldm = false
 let mode = "main"
 let menu = "main"
-let newTimer
-let newTimer2
-let newTimer3
-let newTimer4
-let savedCharm
-let savedCharm2
-let savedCharm3
-let savedCharm4
-let stupidVariable = false
+let dayNum
+let campaignCharm
+let campaignGamemode = false
 
 let slowMo = 0
 let boost = 0
@@ -302,7 +296,7 @@ function initiateMenu() {
 	sfx["click"].play()
 	mode = "main"
 	menu = "main"
-	stupidVariable = false
+	campaignGamemode = false
 	presentArr = []
 	presentList = [...Object.keys(presents)]
 	charm = 0
@@ -417,26 +411,6 @@ function modesMenu() {
 	pop()
 }
 
-function initiateStory() {
-	sfx["click"].play()
-	mode = "story"
-	menu = "story"
-	presentArr = []
-	niceList = [choice(colours)]
-	naughtyList = colours.filter(v => !niceList.includes(v))
-	presentList = [...Object.keys(presents)]
-	charm = 0
-	comboCounter = 0
-	lives = 3
-	honour = 0
-	slowMo = 0
-	boost = 0
-	combo = 0
-	presentValue = 100
-	startStory = currentTime
-	timer = startStory + 73000
-}
-
 function slideShow(txt, img) {
 	push()
 	fill(0)
@@ -466,250 +440,256 @@ function handleList() {
 	}
 	pop()
 }
-// revamp logic here because it is hell
-function storyMode() { // day 1
-	if (currentTime <= startStory + 4000) {
-		let txt = "You are an elf, and have recently been promoted to the head of sorting!"
-		slideShow(txt, "elf")
-	} else if (currentTime <= startStory + 8000) {
-		let txt = "Your job is to make sure that the naughty children do not recieve presents."
-		slideShow(txt, "cut")
-	} else if (currentTime <= startStory + 13000) {
-		let txt = "Conveniently, naughty presents are sorted by colour. (List will be on top-right of screen.)"
-		slideShow(txt, "list")
-	} else if (currentTime <= startStory + 18000) {
-		let txt = "All presents also contain a certain amount of 'charm', which contain magical powers, and are said to make an elf stronger and more cherubic."
+
+function judgement() {
+	if (honour >= 0) {
+		let txt = `You finished the day with ${campaignCharm} total charm. Santa has deemed your performance to be adequate.`
 		slideShow(txt, "charm")
-	} else if (currentTime <= startStory + 22000) {
-		let txt = "Baphomelf, your predecessor and the most charming elf of all, was power hungry, and acquired all the charm he could. He very nearly destroyed Christmas."
-		slideShow(txt, "baphomelf")
-	} else if (currentTime <= startStory + 28000) {
-		let txt = "He amassed a group of like-minded elves, who were tired of working in the freezing cold, and orchestrated a rebellion against Santa."
-		slideShow(txt, "group")
-	} else if (currentTime <= startStory + 32000) {
-		let txt = "Baphomelf and his allies eventually lost the war, and were struck down by Santa."
-		slideShow(txt, "struck")
-	} else if (currentTime <= startStory + 37000) {
-		let txt = "For the crime of rebellion, they suffered a fate worse than death... They were exiled to Birmingham for eternity."
-		slideShow(txt, "birmingham")
-	} else if (currentTime <= startStory + 43000) {
-		let txt = "Anyways, it's the first day of your job. Just cut the 'naughty' gifts. Leave the 'nice' gifts. 5 Days until Christmas. Good Luck."
-		slideShow(txt, "20")
 	} else {
-		if (currentTime <= startStory + 73000) {
-			if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
-			handleList()
-			handleTimer()
-			handlePresents()
-			handleMouseText()
-		} else { // day 2
-			if (currentTime <= startStory + 78000) {
-				if (honour >= 0) {
-					let txt = `You finished the day with ${charm} charm. Santa has deemed your performance to be adequate.`
-					slideShow(txt, "charm")
-				} else {
-					let txt = `You finished the day with ${charm} charm. Santa disapproves of your actions.`
-					slideShow(txt, "charm")
-				}
-			} else if (currentTime <= startStory + 86000) {
-				let txt = "Today, we will be introducing some powerups, which affect how the game is played. The ice cream slows down the game, and the melon increases the amount of charm you get per present."
-				slideShow(txt, "powerups")
-			} else if (currentTime <= startStory + 90000) {
-				let txt = "And thus, begins your second day on the job. 4 Days until Christmas."
-				slideShow(txt, "21")
-				timer = startStory + 120000
-				presentList = [...Object.keys(presents), "slowMo", "boost"]
-				presentArr = []
-				randomPresent(true)
+		let txt = `You finished the day with ${campaignCharm} total charm. Santa disapproves of your actions.`
+		slideShow(txt, "charm")
+	} 
+}
+
+function initiateStory() {
+	sfx["click"].play()
+	mode = "story"
+	menu = "story"
+	presentArr = []
+	niceList = [choice(colours)]
+	naughtyList = colours.filter(v => !niceList.includes(v))
+	presentList = [...Object.keys(presents)]
+	charm = 0
+	campaignCharm = 0
+	comboCounter = 0
+	lives = 3
+	honour = 0
+	slowMo = 0
+	boost = 0
+	combo = 0
+	dayNum = 0 // reset to 0 when done testing
+	presentValue = 100
+	startStory = currentTime
+	timer = startStory + 73000
+}
+
+function nextDay() {
+	campaignCharm += charm
+	startStory = currentTime
+	charm = 0
+	dayNum++
+}
+
+const campaign = [
+	() => { // day 0
+		if (currentTime <= startStory + 4000) {
+			let txt = "You are an elf, and have recently been promoted to the head of sorting!"
+			slideShow(txt, "elf")
+		} else if (currentTime <= startStory + 8000) {
+			let txt = "Your job is to make sure that the naughty children do not recieve presents."
+			slideShow(txt, "cut")
+		} else if (currentTime <= startStory + 13000) {
+			let txt = "Conveniently, naughty presents are sorted by colour. (List will be on top-right of screen.)"
+			slideShow(txt, "list")
+		} else if (currentTime <= startStory + 18000) {
+			let txt = "All presents also contain a certain amount of 'charm', which contain magical powers, and are said to make an elf stronger and more cherubic."
+			slideShow(txt, "charm")
+		} else if (currentTime <= startStory + 22000) {
+			let txt = "Baphomelf, your predecessor and the most charming elf of all, was power hungry, and acquired all the charm he could. He very nearly destroyed Christmas."
+			slideShow(txt, "baphomelf")
+		} else if (currentTime <= startStory + 28000) {
+			let txt = "He amassed a group of like-minded elves, who were tired of working in the freezing cold, and orchestrated a rebellion against Santa."
+			slideShow(txt, "group")
+		} else if (currentTime <= startStory + 32000) {
+			let txt = "Baphomelf and his allies eventually lost the war, and were struck down by Santa."
+			slideShow(txt, "struck")
+		} else if (currentTime <= startStory + 37000) {
+			let txt = "For the crime of rebellion, they suffered a fate worse than death... They were exiled to Birmingham for eternity."
+			slideShow(txt, "birmingham")
+		} else if (currentTime <= startStory + 43000) {
+			let txt = "Anyways, it's the first day of your job. Just cut the 'naughty' gifts. Leave the 'nice' gifts. 5 Days until Christmas. Good Luck."
+			slideShow(txt, "20")
+		} else {
+			if (currentTime <= startStory + 73000) {
+				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
+				handleList()
+				handleTimer()
+				handlePresents()
+				handleMouseText()
+			} else {nextDay()}
+		}
+	},
+
+	() => { // day 1
+		if (currentTime <= startStory + 4000) {
+			judgement()
+		} else if (currentTime <= startStory + 12000) {
+			let txt = "Today, we will be introducing some powerups, which affect how the game is played. The ice cream slows down the game, and the melon increases the amount of charm you get per present."
+			slideShow(txt, "powerups")
+		} else if (currentTime <= startStory + 16000) {
+			let txt = "And thus, begins your second day on the job. 4 Days until Christmas."
+			slideShow(txt, "21")
+			timer = startStory + 46000
+			presentList = [...Object.keys(presents), "slowMo", "boost"]
+			presentArr = []
+			randomPresent(true)
+			niceList = [choice(colours), choice(colours)]
+			while (niceList[0] === niceList[1]) {
 				niceList = [choice(colours), choice(colours)]
-				while (niceList[0] === niceList[1]) {
-					niceList = [choice(colours), choice(colours)]
-				}
-				naughtyList = colours.filter(v => !niceList.includes(v))
-			} else {
-				if (currentTime <= startStory + 120000) {
-					if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
-					handleList()
-					handleTimer()
-					handlePowerUps()
-					handlePresents()
-					handleMouseText()
-				} else { //day 3
-					if (currentTime <= startStory + 125000) {
-						if (honour >= 0) {
-							let txt = `You finished the day with ${charm} total charm. Santa has deemed your performance to be adequate.`
-							slideShow(txt, "charm")
-						} else {
-							let txt = `You finished the day with ${charm} total charm. Santa disapproves of your actions.`
-							slideShow(txt, "charm")
-						} 
-					} else if (currentTime <= startStory + 135000) {
-						let txt = "This time, you'll learn about combos. Combos reward points based on how long it is. You start a combo by slashing presents in quick succession. The doughnut also offers a combo boost."		
-						slideShow(txt, "combo")
-						savedCharm = charm
-					} else if (currentTime <= startStory + 143000) {
-						let txt = "Day 3; this time, the day ends afer you get 10,000 charm. Note that you only get alerted to a combo after it is broken."
-						slideShow(txt, "22")
-						stupidVariable = "score"
-						charm = 0
-						newTimer = 9999999999999999999999999999999
-						presentArr = []
-						randomPresent(true)
-						presentList = [...Object.keys(presents), "slowMo", "boost", "combo"]
-						niceList = [choice(colours), choice(colours)]
-						while (niceList[0] === niceList[1]) {
-							niceList = [choice(colours), choice(colours)]
-						}
-						naughtyList = colours.filter(v => !niceList.includes(v))
-					} else {
-						if (charm < 10000) {
-							if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
-							handleList()
-							handlePowerUps()
-							handlePresents()
-							comboHandler()
-							handleMouseText()
-						} else { //day 4
-							newTimer = Math.min(newTimer, currentTime)
-							if (currentTime <= newTimer + 4000) {
-								if (honour >= 0) {
-									let txt = `You finished the day with ${charm + savedCharm} total charm. Santa has deemed your performance to be adequate.`
-									slideShow(txt, "charm")
-								} else {
-									let txt = `You finished the day with ${charm + savedCharm} total charm. Santa disapproves of your actions.`
-									slideShow(txt, "charm")
-								}
-							} else if (currentTime <= newTimer + 8000) {
-								let txt = "Now, to introduce bombs. Avoid these at all costs. (Don't ask why there are bombs, it is a sweatshop after all.)"
-								push()
-								fill(0)
-								strokeWeight(5)
-								stroke(0)
-								rect(windowWidth/2, windowHeight/2, windowWidth*2, windowHeight*2)
-								image(powerUps["bomb"], windowWidth/2, windowHeight/2, 51 * windowHeight/51, windowHeight)
-								fill(255)
-								text(txt, windowWidth/2, windowHeight - 150, windowWidth*0.75)
-								pop()
-								savedCharm2 = charm + savedCharm
-							} else if (currentTime <= newTimer + 12000) {
-								let txt = "Day 4 - this day ends when you die..."
-								slideShow(txt, "23")
-								presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
-								stupidVariable = "survival"
-								newTimer2 = 9999999999999999999999999999999
-								charm = savedCharm2
-							} else {
-								if (lives > 0) {
-									if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
-									handleLives()
-									handleList()
-									handlePowerUps()
-									handlePresents()
-									comboHandler()
-									handleMouseText()
-								} else { // day 5
-									newTimer2 = Math.min(newTimer2, currentTime)
-									if (currentTime <= newTimer2 + 4000) {
-										if (honour >= 0) {
-											let txt = `You finished the day with ${charm} total charm. Santa has deemed your performance to be adequate.`
-											slideShow(txt, "charm")
-										} else {
-											let txt = `You finished the day with ${charm} total charm. Santa disapproves of your actions.`
-											slideShow(txt, "charm")
-										} 
-									savedCharm = charm
-									} else if (currentTime <= newTimer2 + 8000) {
-										let txt = "Nothing new to introduce here. Get to 15,000 score. The last day until Christmas."
-										slideShow(txt, "24")
-										stupidVariable = "score1"
-										charm = 0
-										newTimer3 = 9999999999999999999999999999999
-										presentArr = []
-										randomPresent(true)
-										randomPresent(true)
-										presentList = [...Object.keys(presents), "slowMo", "boost", "combo"]
-										niceList = [choice(colours), choice(colours)]
-										while (niceList[0] === niceList[1]) {
-											niceList = [choice(colours), choice(colours)]
-										}
-										naughtyList = colours.filter(v => !niceList.includes(v))
-									} else {
-										if (charm < 15000) {
-											if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
-											handleList()
-											handlePowerUps()
-											handlePresents()
-											comboHandler()
-											handleMouseText()
-										} else { // day 6
-											newTimer3 = Math.min(newTimer3, currentTime)
-											if (currentTime <= newTimer3 + 4000) {
-												if (honour >= 0) {
-													let txt = `You finished the day with ${charm + savedCharm} total charm. Santa has deemed your performance to be adequate.`
-													slideShow(txt, "charm")
-												} else {
-													let txt = `You finished the day with ${charm + savedCharm} total charm. Santa disapproves of your actions.`
-													slideShow(txt, "charm")
-												} 
-											} else if (currentTime <= newTimer3 + 8000) {
-												let txt = "There has been a sudden influx of naughty gifts on Christmas. You know what to do."
-												slideShow(txt, "cut")
-												savedCharm2 = charm + savedCharm
-											} else if (currentTime <= newTimer3 + 12000) {
-												let txt = "It's Christmas. Final Day."
-												slideShow(txt, "25")
-												presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
-												stupidVariable = "survival"
-												newTimer4 = 9999999999999999999999999999999
-												charm = savedCharm2
-												lives = 3
-											} else {
-												if (lives > 0) {
-													if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
-													handleLives()
-													handleList()
-													handlePowerUps()
-													handlePresents()
-													comboHandler()
-													handleMouseText()
-												} else {
-													newTimer4 = Math.min(newTimer4, currentTime)
-													if (currentTime <= newTimer4 + 4000) {
-														if (honour >= 0) {
-															if (charm >= 35000) {
-																let txt = `You finished the game with ${charm} total charm. You continued being a subservient elf until your death. [Ending 1/4]`
-																slideShow(txt, "elf")
-															} else {
-																let txt = `You finished the game with ${charm} total charm. You were ridiculed due to your low charm by other elves. [Ending 2/4]`
-																slideShow(txt, "sad")
-															}
-														} else {
-															if (charm >= 75000) {
-																let txt = `You finished the game with ${charm} total charm. You overthrew Santa. [Ending 3/4]`
-																slideShow(txt, "baphomelf")
-															} else {
-																let txt = `You finished the game with ${charm} total charm. You tried to stage a rebellion, but failed. You were sentenced to BIRMINGHAM. [Ending 4/4]`
-																slideShow(txt, "birmingham")
-															}
-														} 
-													} else {
-														menu = "gOver"
-														handleGOverUI(`Charm: ${charm}`, "pink")
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
 			}
+			naughtyList = colours.filter(v => !niceList.includes(v))
+		} else {
+			if (currentTime <= startStory + 47000) {
+				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
+				handleList()
+				handleTimer()
+				handlePowerUps()
+				handlePresents()
+				handleMouseText()
+			}  else {nextDay()}
+		}
+	},
+
+	() => { // day 2
+		if (currentTime <= startStory + 4000) {
+			judgement()
+		} else if (currentTime <= startStory + 14000) {
+			let txt = "This time, you'll learn about combos. Combos reward points based on how long it is. You start a combo by slashing presents in quick succession. The doughnut also offers a combo boost."		
+			slideShow(txt, "combo")
+		} else if (currentTime <= startStory + 22000) {
+			let txt = "Day 3; this time, the day ends afer you get 10,000 charm. Note that you only get alerted to a combo after it is broken."
+			slideShow(txt, "22")
+			campaignGamemode = "score"
+			presentArr = []
+			randomPresent(true)
+			presentList = [...Object.keys(presents), "slowMo", "boost", "combo"]
+			niceList = [choice(colours), choice(colours)]
+			while (niceList[0] === niceList[1]) {
+				niceList = [choice(colours), choice(colours)]
+			}
+			naughtyList = colours.filter(v => !niceList.includes(v))
+		} else {
+			if (charm < 10000) {
+				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
+				handleList()
+				handlePowerUps()
+				handlePresents()
+				comboHandler()
+				handleMouseText()
+			} else {nextDay()}
+		}
+	},
+
+	() => { // day 3
+		if (currentTime <= startStory + 4000) {
+			judgement()
+		} else if (currentTime <= startStory + 8000) {
+			let txt = "Now, to introduce bombs. Avoid these at all costs. (Don't ask why there are bombs, it is a sweatshop after all.)"
+			push()
+			fill(0)
+			strokeWeight(5)
+			stroke(0)
+			rect(windowWidth/2, windowHeight/2, windowWidth*2, windowHeight*2)
+			image(powerUps["bomb"], windowWidth/2, windowHeight/2, 51 * windowHeight/51, windowHeight)
+			fill(255)
+			text(txt, windowWidth/2, windowHeight - 150, windowWidth*0.75)
+			pop()
+		} else if (currentTime <= startStory + 12000) {
+			let txt = "Day 4 - this day ends when you die..."
+			slideShow(txt, "23")
+			presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
+			campaignGamemode = "survival"
+		} else {
+			if (lives > 0) {
+				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
+				handleLives()
+				handleList()
+				handlePowerUps()
+				handlePresents()
+				comboHandler()
+				handleMouseText()
+			} else {nextDay()}
+		}
+	},
+
+	() => { // day 4
+		if (currentTime <= startStory + 4000) {
+			judgement()
+		} else if (currentTime <= startStory + 8000) {
+			let txt = "Nothing new to introduce here. Get to 15,000 score. The last day until Christmas."
+			slideShow(txt, "24")
+			campaignGamemode = "score1"
+			presentArr = []
+			randomPresent(true)
+			randomPresent(true)
+			presentList = [...Object.keys(presents), "slowMo", "boost", "combo"]
+			niceList = [choice(colours), choice(colours)]
+			while (niceList[0] === niceList[1]) {
+				niceList = [choice(colours), choice(colours)]
+			}
+			naughtyList = colours.filter(v => !niceList.includes(v))
+		} else {
+			if (charm < 15000) {
+				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
+				handleList()
+				handlePowerUps()
+				handlePresents()
+				comboHandler()
+				handleMouseText()
+			} else {nextDay()}
+		}
+	},
+
+	() => { // day 5
+		if (currentTime <= startStory + 4000) {
+			judgement()
+		} else if (currentTime <= startStory + 8000) {
+			let txt = "There has been a sudden influx of naughty gifts on Christmas. You know what to do."
+			slideShow(txt, "cut")
+		} else if (currentTime <= startStory + 12000) {
+			let txt = "It's Christmas. Final Day."
+			slideShow(txt, "25")
+			presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
+			campaignGamemode = "survival"
+			lives = 3
+		} else {
+			if (lives > 0) {
+				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
+				handleLives()
+				handleList()
+				handlePowerUps()
+				handlePresents()
+				comboHandler()
+				handleMouseText()
+			} else {nextDay()}
+		}
+	},
+
+	() => { // day 6
+		if (currentTime <= startStory + 7500) {
+			if (honour >= 0) {
+				if (campaignCharm >= 35000) {
+					let txt = `You finished the game with ${campaignCharm} total charm. You continued being a subservient elf until your death. [Ending 1/4]`
+					slideShow(txt, "elf")
+				} else {
+					let txt = `You finished the game with ${campaignCharm} total charm. You were ridiculed due to your low charm by other elves. [Ending 2/4]`
+					slideShow(txt, "sad")
+				}
+			} else {
+				if (campaignCharm >= 75000) {
+					let txt = `You finished the game with ${campaignCharm} total charm. You overthrew Santa. [Ending 3/4]`
+					slideShow(txt, "baphomelf")
+				} else {
+					let txt = `You finished the game with ${campaignCharm} total charm. You tried to stage a rebellion, but failed. You were sentenced to BIRMINGHAM. [Ending 4/4]`
+					slideShow(txt, "birmingham")
+				}
+			} 
+		} else {
+			menu = "gOver"
+			handleGOverUI(`Charm: ${campaignCharm}`, "pink")
 		}
 	}
-
-}
+]
 
 function resetTimed() {
 	sfx["click"].play()
@@ -967,7 +947,7 @@ function startSlowMo() {
 }
 
 function explosion() {
-	if (mode === "survival" || stupidVariable === "survival") {
+	if (mode === "survival" || campaignGamemode === "survival") {
 		lives--
 		specialText = "=> Bomb Exploded: -1 Life"
 		mouseText = "-1 Life"
@@ -1058,9 +1038,9 @@ function handleMouseText() {
 	if (!["main", "modes"].includes(mode)) {
 		if (mode === "score") {
 			text(`Charm: ${charm}/25000 ${specialText}`, 25, 35)
-		} else if (stupidVariable === "score") {
+		} else if (campaignGamemode === "score") {
 			text(`Charm: ${charm}/10000 ${specialText}`, 25, 35)		
-		} else if (stupidVariable === "score1") {	
+		} else if (campaignGamemode === "score1") {	
 			text(`Charm: ${charm}/15000 ${specialText}`, 25, 35)		
 		} else {
 			text(`Charm: ${charm} ${specialText}`, 25, 35)
@@ -1138,6 +1118,6 @@ function draw() {
 		case "survival": survivalMode(); break;
 		case "main": mainMenu(); break;
 		case "modes": modesMenu(); break;
-		case "story": storyMode(); break;
+		case "story": campaign[dayNum](); break;
 	} trail(mouseX, mouseY, 20);
 }
