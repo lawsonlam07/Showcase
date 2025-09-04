@@ -550,7 +550,7 @@ const campaign = [
 			}
 			naughtyList = colours.filter(v => !niceList.includes(v))
 		} else {
-			if (currentTime <= startStory + 47000) {
+			if (currentTime <= startStory + 46000) {
 				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
 				handleList()
 				handleTimer()
