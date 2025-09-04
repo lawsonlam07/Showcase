@@ -1,7 +1,5 @@
 <!DOCTYPE HTML>
 <html lang="en">
-<!-- Add icicles to header -->
-<!-- 100 PageSpeed [replace tsparticles script for console errors] -->
 
 <head> 
   <meta charset="UTF-8">
@@ -26,14 +24,6 @@
   <div id="snow-particles"></div>
   <script src="snow.js"></script>
 
-  <div id="image-display" onclick="disableImage(event)">
-    <div id="image-container">
-      <div id="arrow-left" class="image-nav nav-link" onclick="prevImage()">←</div>
-      <img id="displayed-image" src="Game/Promo/screenie1.webp">
-      <div id="arrow-right" class="image-nav nav-link" onclick="nextImage()">→</div>
-    </div>
-  </div>
-
   <header id="header">
     <a href=""><img id="header-logo" src="Game/Buttons/logo.png" alt="Game logo"></a>
     <nav id="nav-bar"><ul>
@@ -41,7 +31,17 @@
       <li><a class="nav-link" target="_blank" href="https://youtu.be/qPBeQ6JcoKI">Trailer</a></li>
       <li><a class="nav-link" target="_blank" href="https://github.com/lawsonlam07/Santas-Sweatshop">GitHub</a></li>
     </ul></nav>
+    <img id="left-icicles" class="header-deco" src="Game/Buttons/ice1.png" alt="Left icicles header decoration">
+    <img id="right-icicles" class="header-deco" src="Game/Buttons/ice2.png" alt="Right icicles header decoration">
   </header>
+
+  <div id="image-display" onclick="disableImage(event)">
+    <div id="image-container">
+      <div id="arrow-left" class="image-nav nav-link" onclick="prevImage()">←</div>
+      <img id="displayed-image" src="Game/Promo/screenie1.webp">
+      <div id="arrow-right" class="image-nav nav-link" onclick="nextImage()">→</div>
+    </div>
+  </div>
 
   <div id="game-container">
     <img id="game-thumbnail" src="Game/Promo/game.webp" alt="Game thumbnail">

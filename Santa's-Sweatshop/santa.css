@@ -55,6 +55,23 @@ a {
   height: 100%;
 }
 
+#left-icicles {
+  left: calc(5%/6);
+  top: 75px;
+}
+
+#right-icicles {
+  left: calc(100% - 5%/6);
+  top: 75px;
+  transform: translate(-100%, 0%);
+}
+
+.header-deco {
+  display: inline;
+  position: absolute;
+  width: 10%;
+}
+
 #nav-bar {
   display: none;
 }
@@ -88,7 +105,7 @@ a {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(75, 75, 75, 0.5);
+  background-color: rgba(75, 75, 75, 0.75);
 }
 
 #image-container {
