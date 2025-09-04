@@ -154,12 +154,8 @@ function setup() {
 	songs["xmas"].loop()
 }
 
-function concurrentSFX() {
-	return Object.values(sfx).filter(v => v.isPlaying()).length
-}
-
 function safePlay(id) {
-	if (concurrentSFX() <= 1) {
+	if (Object.values(sfx).filter(v => v.isPlaying()).length === 0) {
 		sfx[id].play()
 	}
 }
