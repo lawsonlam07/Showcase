@@ -160,6 +160,18 @@ a {
   background-position: 50% 50%;
 }
 
+#loading {
+  z-index: 1000;
+  width: 400px;
+  height: 60px;
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
 #game-container {
   display: block;
   line-height: 0;

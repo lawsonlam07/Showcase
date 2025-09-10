@@ -1085,7 +1085,6 @@ function keyPressed() {
 }
 
 function mousePressed() {
-	console.log(menu)
 	switch (menu) {
 		case "main":
 			if (mouseHalfBounds(-200, 200, -50, 50)) {initiateStory()}
@@ -1119,6 +1118,8 @@ function mousePressed() {
 }
 
 function draw() {
+	let loadingElement = window.parent.document.getElementById("loading")
+	if (loadingElement) {loadingElement.style.display = "none"}
 	currentTime = new Date().getTime()
 	createCanvas(windowWidth, windowHeight)
 	noSmooth()
