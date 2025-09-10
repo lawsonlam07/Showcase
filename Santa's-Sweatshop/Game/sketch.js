@@ -1,6 +1,7 @@
 let currentTime = new Date().getTime()
 let trailArr = [];
 let presentArr = [];
+let muted = false
 let ldm = false
 let mode = "main"
 let menu = "main"
@@ -155,9 +156,14 @@ function setup() {
 }
 
 function safePlay(id) {
-	if (Object.values(sfx).filter(v => v.isPlaying()).length === 0) {
+	if (Object.values(sfx).filter(v => v.isPlaying()).length === 0 && !muted) {
 		sfx[id].play()
 	}
+}
+
+function toggleMute() {
+	muted = !muted
+	if (muted) {songs["xmas"].pause()} else {songs["xmas"].play()}
 }
 
 
@@ -1080,6 +1086,7 @@ function handleGOverUI(txt, col) {
 
 function keyPressed() {
 	if (key === "l") {ldm = !ldm}
+	else if (key === "m") {toggleMute()}
 	else if (keyCode === ESCAPE && menu === "game") {initiateModes()}
 	else if (keyCode === ESCAPE && menu === "modes") {initiateMenu()}
 }
