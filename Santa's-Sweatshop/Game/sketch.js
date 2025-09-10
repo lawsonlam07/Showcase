@@ -698,6 +698,11 @@ const campaign = [
 	}
 ]
 
+function campaignMode() {
+	campaign[dayNum]()
+	image(buttons["back"], 75, windowHeight - 35)
+}
+
 function resetTimed() {
 	safePlay("click")
 	mode = "timed"
@@ -1080,10 +1085,14 @@ function keyPressed() {
 }
 
 function mousePressed() {
+	console.log(menu)
 	switch (menu) {
 		case "main":
 			if (mouseHalfBounds(-200, 200, -50, 50)) {initiateStory()}
 			else if (mouseHalfBounds(-200, 200, 80, 140)) {initiateModes()}
+			break;
+		case "story":
+			if (mouseFullBounds(10-windowWidth, 140-windowWidth, windowHeight-60, windowHeight-10)) {initiateMenu()}
 			break;
 		case "modes":
 			if (mouseFullBounds(-140, -10, 10, 60)) {initiateMenu()}
@@ -1125,6 +1134,6 @@ function draw() {
 		case "survival": survivalMode(); break;
 		case "main": mainMenu(); break;
 		case "modes": modesMenu(); break;
-		case "story": campaign[dayNum](); break;
+		case "story": campaignMode(); break;
 	} trail(mouseX, mouseY, 20);
 }
