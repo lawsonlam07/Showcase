@@ -161,13 +161,13 @@ a {
 }
 
 #loading {
-  z-index: 1000;
+  z-index: 100;
   width: 400px;
   height: 100px;
   display: none;
   position: fixed;
   left: 50%;
-  top: 50%;
+  top: calc(50% + 39px);
   transform: translate(-50%, -50%);
 
 }
