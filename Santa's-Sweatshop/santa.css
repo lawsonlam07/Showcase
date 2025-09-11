@@ -163,7 +163,7 @@ a {
 #loading {
   z-index: 1000;
   width: 400px;
-  height: 60px;
+  height: 100px;
   display: none;
   position: fixed;
   left: 50%;

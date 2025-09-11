@@ -5,8 +5,6 @@ let imageNum = 0;
 function fullscreen() {
     if (page.requestFullscreen) {
         page.requestFullscreen();
-    } else if (page.mozRequestFullscreen) {
-        page.mozRequestFullscreen();
     } else if (page.webkitRequestFullscreen) {
         page.webkitRequestFullscreen();
     } else if (page.msRequestFullscreen) {
@@ -38,7 +36,7 @@ function displayImage() {
 }
 
 function disableImage(e) {
-    if (e.target.id === "image-display") {
+    if (e === "keybind" || e.target.id === "image-display") {
         imageView = false;
         document.getElementById("image-display").style.display = "none";
     }
@@ -54,7 +52,7 @@ document.addEventListener("keydown", function (e) {
                 nextImage();
                 break;
             case "Escape":
-                disableImage();
+                disableImage("keybind");
                 break;
         }
     }

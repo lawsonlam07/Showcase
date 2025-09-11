@@ -8,6 +8,7 @@ let menu = "main"
 let dayNum
 let campaignCharm
 let campaignGamemode = false
+let loadingElement
 
 let slowMo = 0
 let boost = 0
@@ -101,7 +102,11 @@ function preload() {
 		"minute": loadImage("Buttons/minute.png"),
 		"survival": loadImage("Buttons/survival.png"),
 		"chaos": loadImage("Buttons/chaos.png"),
-		"list": loadImage("Buttons/list.png")
+		"list": loadImage("Buttons/list.png"),
+		"ldm": loadImage("Buttons/ldm.png"),
+		"hdm": loadImage("Buttons/hdm.png"),
+		"unmute": loadImage("Buttons/unmute.png"),
+		"mute": loadImage("Buttons/mute.png")
 	}
 	story = {
 		"elf": loadImage("Story/elf.png"),
@@ -327,6 +332,9 @@ function mainMenu() {
 	image(buttons["logo"], windowWidth/2, windowHeight/2 - 150)
 	image(buttons["story"], windowWidth/2, windowHeight/2)
 	image(buttons["gamemodes"], windowWidth/2, windowHeight/2 + 110)
+	if (loadingElement) {image(buttons["back"], windowWidth - 75, 35)}
+	image(buttons[ldm ? "ldm" : "hdm"], 60, windowHeight-60)
+	image(buttons[muted ? "mute" : "unmute"], windowWidth-60, windowHeight-60)
 	handlePresents()
 	comboHandler()
 	handleMouseText()
@@ -356,6 +364,8 @@ function modesMenu() {
 	image(buttons["minute"], windowWidth/2, windowHeight/2)
 	image(buttons["survival"], windowWidth/2, windowHeight/2 + 100)
 	image(buttons["chaos"], windowWidth/2, windowHeight/2 + 200)
+	image(buttons[ldm ? "ldm" : "hdm"], 60, windowHeight-60)
+	image(buttons[muted ? "mute" : "unmute"], windowWidth-60, windowHeight-60)
 	handlePresents()
 	comboHandler()
 	handleMouseText()
@@ -1084,6 +1094,19 @@ function handleGOverUI(txt, col) {
 	image(buttons["menu"], windowWidth/2, windowHeight/2 + 75)
 }
 
+function quitGame() {
+	if (loadingElement) {
+		let page = window.parent.document
+		if (page.exitFullscreen) {
+			page.exitFullscreen();
+		} else if (page.webkitExitFullscreen) {
+			page.webkitExitFullscreen();
+		} else if (page.msExitFullscreen) {
+			page.msExitFullscreen();
+		}
+	}
+}
+
 function keyPressed() {
 	if (key === "l") {ldm = !ldm}
 	else if (key === "m") {toggleMute()}
@@ -1096,6 +1119,9 @@ function mousePressed() {
 		case "main":
 			if (mouseHalfBounds(-200, 200, -50, 50)) {initiateStory()}
 			else if (mouseHalfBounds(-200, 200, 80, 140)) {initiateModes()}
+			else if (mouseFullBounds(-140, -10, 10, 60)) {quitGame()}
+			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm}
+			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute()}
 			break;
 		case "story":
 			if (mouseFullBounds(10-windowWidth, 140-windowWidth, windowHeight-60, windowHeight-10)) {initiateMenu()}
@@ -1107,6 +1133,8 @@ function mousePressed() {
 			else if (mouseHalfBounds(-200, 200, -30, 30)) {resetTimed()}
 			else if (mouseHalfBounds(-200, 200, 70, 130)) {resetSurvival()}
 			else if (mouseHalfBounds(-200, 200, 170, 230)) {resetChaos()}
+			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm}
+			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute()}
 			break;
 		case "game":
 			if (mouseFullBounds(-140, -10, 10, 60)) {initiateModes()}
@@ -1125,7 +1153,7 @@ function mousePressed() {
 }
 
 function draw() {
-	let loadingElement = window.parent.document.getElementById("loading")
+	loadingElement = window.parent.document.getElementById("loading")
 	if (loadingElement) {loadingElement.style.display = "none"}
 	currentTime = new Date().getTime()
 	createCanvas(windowWidth, windowHeight)
