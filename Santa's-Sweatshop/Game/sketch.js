@@ -20,6 +20,13 @@ let presentList = []
 let naughtyList = []
 let niceList = []
 let colours = ["red", "purple", "grey", "green", "blue"]
+let colourTable = {
+	"red": "#ed1c24", //237, 28, 36
+	"purple": "#6f3198", //111, 49, 152
+	"grey": "#b4b4b4", //180
+	"green": "#a8e61d", //168, 230, 29
+	"blue": "#00b7ef" //0, 183, 239
+} //#ffad60 | 255, 173, 96
 
 let specialText = ""
 let specialTimer = 0
@@ -450,14 +457,16 @@ function handleList() {
 	push()
 	imageMode(CORNER)
 	rectMode(CORNER)
+	strokeWeight(3)
+	stroke("#3b3b3b")
 	image(buttons["list"], windowWidth - 250, 0)
 	for (let i = 0; i < naughtyList.length; i++) {
-		let v = naughtyList[i]
+		let v = colourTable[naughtyList[i]]
 		fill(v)
 		rect(windowWidth - 210, i*60 + 75, 50, 50)
 	}
 	for (let i = 0; i < niceList.length; i++) {
-		let v = niceList[i]
+		let v = colourTable[niceList[i]]
 		fill(v)
 		rect(windowWidth - 90, i*60 + 75, 50, 50)
 	}
@@ -512,7 +521,7 @@ const campaign = [
 			let txt = "Your job is to make sure that the naughty children do not recieve presents."
 			slideShow(txt, "cut")
 		} else if (currentTime <= startStory + 13000) {
-			let txt = "Conveniently, naughty presents are sorted by colour. (List will be on top-right of screen.)"
+			let txt = "Conveniently, naughty presents are sorted by colour. (List will be on top-right of screen & pattern does not matter.)"
 			slideShow(txt, "list")
 		} else if (currentTime <= startStory + 18000) {
 			let txt = "All presents also contain a certain amount of 'charm', which contain magical powers, and are said to make an elf stronger and more cherubic."
