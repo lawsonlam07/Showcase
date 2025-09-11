@@ -96,7 +96,7 @@ function preload() {
 		"logo": loadImage("Buttons/logo.png"),
 		"background": loadImage("Buttons/background.png"),
 		"story": loadImage("Buttons/story.png"),
-		"gamemodes": loadImage("Buttons/gamemodes.png"),
+		"minigames": loadImage("Buttons/minigames.png"),
 		"zen": loadImage("Buttons/zen.png"),
 		"blitz": loadImage("Buttons/blitz.png"),
 		"minute": loadImage("Buttons/minute.png"),
@@ -329,9 +329,9 @@ function initiateMenu() {
 }
 
 function mainMenu() {
-	image(buttons["logo"], windowWidth/2, windowHeight/2 - 150)
-	image(buttons["story"], windowWidth/2, windowHeight/2)
-	image(buttons["gamemodes"], windowWidth/2, windowHeight/2 + 110)
+	image(buttons["logo"], windowWidth/2, windowHeight/2 - 93.5)
+	image(buttons["story"], windowWidth/2, windowHeight/2 + 39)
+	image(buttons["minigames"], windowWidth/2, windowHeight/2 + 144)
 	if (loadingElement) {image(buttons["back"], windowWidth - 75, 35)}
 	image(buttons[ldm ? "ldm" : "hdm"], 60, windowHeight-60)
 	image(buttons[muted ? "mute" : "unmute"], windowWidth-60, windowHeight-60)
@@ -359,11 +359,11 @@ function initiateModes() {
 
 function modesMenu() {
 	image(buttons["back"], windowWidth - 75, 35)
-	image(buttons["zen"], windowWidth/2, windowHeight/2 - 200)
-	image(buttons["blitz"], windowWidth/2, windowHeight/2 - 100)
+	image(buttons["zen"], windowWidth/2, windowHeight/2 - 170)
+	image(buttons["blitz"], windowWidth/2, windowHeight/2 - 85)
 	image(buttons["minute"], windowWidth/2, windowHeight/2)
-	image(buttons["survival"], windowWidth/2, windowHeight/2 + 100)
-	image(buttons["chaos"], windowWidth/2, windowHeight/2 + 200)
+	image(buttons["survival"], windowWidth/2, windowHeight/2 + 85)
+	image(buttons["chaos"], windowWidth/2, windowHeight/2 + 170)
 	image(buttons[ldm ? "ldm" : "hdm"], 60, windowHeight-60)
 	image(buttons[muted ? "mute" : "unmute"], windowWidth-60, windowHeight-60)
 	handlePresents()
@@ -373,7 +373,7 @@ function modesMenu() {
 	textAlign(LEFT)
 	rectMode(CORNER)
 	fill(185, 229, 237)
-	if (mouseHalfBounds(-200, 200, -230, -170)) {
+	if (mouseHalfBounds(-200, 200, -200, -140)) {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(17)
@@ -382,7 +382,7 @@ function modesMenu() {
 		fill("black")
 		text(txt, mouseX + 7, mouseY + 7, 200, 100)
 		text(`Charm: ${zenBest}`, mouseX + 7, mouseY - 20, 200, 100)
-	} else if (mouseHalfBounds(-200, 200, -130, -70)) {
+	} else if (mouseHalfBounds(-200, 200, -115, -55)) {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(16)
@@ -408,7 +408,7 @@ function modesMenu() {
 		} else {
 			text(`PB: ${timedBest} Charm`, mouseX + 7, mouseY - 20, 200, 100)
 		}
-	} else if (mouseHalfBounds(-200, 200, 70, 130)) {
+	} else if (mouseHalfBounds(-200, 200, 55, 115)) {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(16)
@@ -421,11 +421,11 @@ function modesMenu() {
 		} else {
 			text(`PB: ${survivalBest} Charm`, mouseX + 7, mouseY - 20, 200, 100)
 		}
-	} else if (mouseHalfBounds(-200, 200, 170, 230)) {
+	} else if (mouseHalfBounds(-200, 200, 140, 200)) {
 		rect(mouseX, mouseY, 200, 100, 10)
 		rect(mouseX, mouseY - 25, 200, 25, 10)
 		textSize(15)
-		let txt = "Chaos; It's a slippery slope to hell... Embrace Chaos! ['L' => LDM]"
+		let txt = "Chaos; It's a slippery slope to hell... Embrace Chaos! LDM endorsed."
 		stroke("navy")
 		fill("black")
 		text(txt, mouseX + 7, mouseY + 12, 200, 100)
@@ -1117,8 +1117,8 @@ function keyPressed() {
 function mousePressed() {
 	switch (menu) {
 		case "main":
-			if (mouseHalfBounds(-200, 200, -50, 50)) {initiateStory()}
-			else if (mouseHalfBounds(-200, 200, 80, 140)) {initiateModes()}
+			if (mouseHalfBounds(-200, 200, -11, 89)) {initiateStory()}
+			else if (mouseHalfBounds(-200, 200, 114, 174)) {initiateModes()}
 			else if (mouseFullBounds(-140, -10, 10, 60)) {quitGame()}
 			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm}
 			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute()}
@@ -1128,11 +1128,11 @@ function mousePressed() {
 			break;
 		case "modes":
 			if (mouseFullBounds(-140, -10, 10, 60)) {initiateMenu()}
-			else if (mouseHalfBounds(-200, 200, -230, -170)) {resetZen()}
-			else if (mouseHalfBounds(-200, 200, -130, -70)) {resetScore()}
+			else if (mouseHalfBounds(-200, 200, -200, -140)) {resetZen()}
+			else if (mouseHalfBounds(-200, 200, -115, -55)) {resetScore()}
 			else if (mouseHalfBounds(-200, 200, -30, 30)) {resetTimed()}
-			else if (mouseHalfBounds(-200, 200, 70, 130)) {resetSurvival()}
-			else if (mouseHalfBounds(-200, 200, 170, 230)) {resetChaos()}
+			else if (mouseHalfBounds(-200, 200, 55, 115)) {resetSurvival()}
+			else if (mouseHalfBounds(-200, 200, 140, 200)) {resetChaos()}
 			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm}
 			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute()}
 			break;
