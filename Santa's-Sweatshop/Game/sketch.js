@@ -1120,8 +1120,8 @@ function mousePressed() {
 			if (mouseHalfBounds(-200, 200, -11, 89)) {initiateStory()}
 			else if (mouseHalfBounds(-200, 200, 114, 174)) {initiateModes()}
 			else if (mouseFullBounds(-140, -10, 10, 60)) {quitGame()}
-			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm}
-			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute()}
+			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm; safePlay("click")}
+			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute(); safePlay("click")}
 			break;
 		case "story":
 			if (mouseFullBounds(10-windowWidth, 140-windowWidth, windowHeight-60, windowHeight-10)) {initiateMenu()}
@@ -1133,8 +1133,8 @@ function mousePressed() {
 			else if (mouseHalfBounds(-200, 200, -30, 30)) {resetTimed()}
 			else if (mouseHalfBounds(-200, 200, 55, 115)) {resetSurvival()}
 			else if (mouseHalfBounds(-200, 200, 140, 200)) {resetChaos()}
-			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm}
-			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute()}
+			else if (mouseFullBounds(10-windowWidth, 110-windowWidth, windowHeight-110, windowHeight-10)) {ldm = !ldm; safePlay("click")}
+			else if (mouseFullBounds(-110, -10, windowHeight-110, windowHeight-10)) {toggleMute(); safePlay("click")}
 			break;
 		case "game":
 			if (mouseFullBounds(-140, -10, 10, 60)) {initiateModes()}
