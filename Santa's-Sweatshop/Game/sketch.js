@@ -21,12 +21,12 @@ let naughtyList = []
 let niceList = []
 let colours = ["red", "purple", "grey", "green", "blue"]
 let colourTable = {
-	"red": "#ed1c24", //237, 28, 36
-	"purple": "#6f3198", //111, 49, 152
-	"grey": "#b4b4b4", //180
-	"green": "#a8e61d", //168, 230, 29
-	"blue": "#00b7ef" //0, 183, 239
-} //#ffad60 | 255, 173, 96
+	"red": "#ed1c24",
+	"purple": "#6f3198",
+	"grey": "#b4b4b4",
+	"green": "#a8e61d",
+	"blue": "#00b7ef"
+}
 
 let specialText = ""
 let specialTimer = 0
@@ -453,6 +453,17 @@ function slideShow(txt, img) {
 	pop()
 }
 
+function generateLists(naughtyNum) {
+    let remaining = [...colours]
+    naughtyList = []
+    for (i = 0; i < naughtyNum; i++) {
+        let pick = choice(remaining)
+        naughtyList.push(pick)
+        remaining = remaining.filter(v => v !== pick)
+    }
+    niceList = colours.filter(v => !naughtyList.includes(v))
+}
+
 function handleList() {
 	push()
 	imageMode(CORNER)
@@ -488,8 +499,6 @@ function initiateStory() {
 	mode = "story"
 	menu = "story"
 	presentArr = []
-	niceList = [choice(colours)]
-	naughtyList = colours.filter(v => !niceList.includes(v))
 	presentList = [...Object.keys(presents)]
 	charm = 0
 	campaignCharm = 0
@@ -520,19 +529,19 @@ const campaign = [
 		} else if (currentTime <= startStory + 8000) {
 			let txt = "Your job is to make sure that the naughty children do not recieve presents."
 			slideShow(txt, "cut")
-		} else if (currentTime <= startStory + 13000) {
-			let txt = "Conveniently, naughty presents are sorted by colour. (List will be on top-right of screen & pattern does not matter.)"
+		} else if (currentTime <= startStory + 15000) {
+			let txt = "Conveniently, naughty presents are sorted by colour. (List will be on top-right of screen & pattern does not matter.) Note that following this is optional, but determines your ending."
 			slideShow(txt, "list")
-		} else if (currentTime <= startStory + 18000) {
-			let txt = "All presents also contain a certain amount of 'charm', which contain magical powers, and are said to make an elf stronger and more cherubic."
-			slideShow(txt, "charm")
 		} else if (currentTime <= startStory + 22000) {
+			let txt = "All presents also contain a certain amount of 'charm', which contain magical powers, and are said to make an elf stronger and more cherubic. The level of charm you have also determines your ending."
+			slideShow(txt, "charm")
+		} else if (currentTime <= startStory + 26000) {
 			let txt = "Baphomelf, your predecessor and the most charming elf of all, was power hungry, and acquired all the charm he could. He very nearly destroyed Christmas."
 			slideShow(txt, "baphomelf")
-		} else if (currentTime <= startStory + 28000) {
+		} else if (currentTime <= startStory + 30000) {
 			let txt = "He amassed a group of like-minded elves, who were tired of working in the freezing cold, and orchestrated a rebellion against Santa."
 			slideShow(txt, "group")
-		} else if (currentTime <= startStory + 32000) {
+		} else if (currentTime <= startStory + 33000) {
 			let txt = "Baphomelf and his allies eventually lost the war, and were struck down by Santa."
 			slideShow(txt, "struck")
 		} else if (currentTime <= startStory + 37000) {
@@ -541,6 +550,7 @@ const campaign = [
 		} else if (currentTime <= startStory + 43000) {
 			let txt = "Anyways, it's the first day of your job. Just cut the 'naughty' gifts. Leave the 'nice' gifts. 5 Days until Christmas. Good Luck."
 			slideShow(txt, "20")
+			generateLists(4)
 		} else {
 			if (currentTime <= startStory + 73000) {
 				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
@@ -565,11 +575,7 @@ const campaign = [
 			presentList = [...Object.keys(presents), "slowMo", "boost"]
 			presentArr = []
 			randomPresent(true)
-			niceList = [choice(colours), choice(colours)]
-			while (niceList[0] === niceList[1]) {
-				niceList = [choice(colours), choice(colours)]
-			}
-			naughtyList = colours.filter(v => !niceList.includes(v))
+			generateLists(3)
 		} else {
 			if (currentTime <= startStory + 46000) {
 				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
@@ -595,11 +601,7 @@ const campaign = [
 			presentArr = []
 			randomPresent(true)
 			presentList = [...Object.keys(presents), "slowMo", "boost", "combo"]
-			niceList = [choice(colours), choice(colours)]
-			while (niceList[0] === niceList[1]) {
-				niceList = [choice(colours), choice(colours)]
-			}
-			naughtyList = colours.filter(v => !niceList.includes(v))
+			generateLists(3)
 		} else {
 			if (charm < 10000) {
 				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
@@ -630,6 +632,7 @@ const campaign = [
 			let txt = "Day 4 - this day ends when you die..."
 			slideShow(txt, "23")
 			presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
+			generateLists(2)
 			campaignGamemode = "survival"
 		} else {
 			if (lives > 0) {
@@ -655,11 +658,7 @@ const campaign = [
 			randomPresent(true)
 			randomPresent(true)
 			presentList = [...Object.keys(presents), "slowMo", "boost", "combo"]
-			niceList = [choice(colours), choice(colours)]
-			while (niceList[0] === niceList[1]) {
-				niceList = [choice(colours), choice(colours)]
-			}
-			naughtyList = colours.filter(v => !niceList.includes(v))
+			generateLists(3)
 		} else {
 			if (charm < 15000) {
 				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
@@ -682,6 +681,7 @@ const campaign = [
 			let txt = "It's Christmas. Final Day."
 			slideShow(txt, "25")
 			presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
+			generateLists(5)
 			campaignGamemode = "survival"
 			lives = 3
 		} else {
