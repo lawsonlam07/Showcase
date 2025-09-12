@@ -1,10 +1,12 @@
 let currentTime = new Date().getTime()
-let trailArr = [];
-let presentArr = [];
+let trailArr = []
+let presentArr = []
+let debrisArr = []
 let muted = false
 let ldm = false
 let mode = "main"
 let menu = "main"
+let pick
 let dayNum
 let campaignCharm
 let campaignGamemode = false
@@ -178,9 +180,14 @@ function toggleMute() {
 	if (muted) {songs["xmas"].pause()} else {songs["xmas"].play()}
 }
 
+function randint(lb, ub) {
+	let range = ub - lb + 1
+    return Math.floor(Math.random() * range) + lb
+}
+
 function choice(arr) {
-	let index = Math.floor(Math.random() * arr.length);
-	return arr[index];
+	let index = Math.floor(Math.random() * arr.length)
+	return arr[index]
 }
 
 function mouseHalfBounds(xLB, xUB, yLB, yUB) {
@@ -286,7 +293,12 @@ class Present {
 					honour -= 10
 				}
 			}
-			comboCheck()
+			
+			if (!ldm && debrisArr.length < 100) {
+				for (let i = 0; i < randint(5, 15); i++) {
+					debrisArr.push(new Debris(this.x, this.y, this.skin))
+				}
+			} comboCheck()
 		} else if (this.y >= windowHeight + 50) {
 			this.alive = false
 			if (mode === "story") {
@@ -313,6 +325,88 @@ class Present {
 			presentArr = presentArr.filter(v => v.Id !== this.Id)
 			if (this.cycle) {randomPresent(this.cycle)}
 		}
+	}
+}
+
+class Debris {
+	constructor(x, y, skin) {
+		this.x = x + randint(-50, 50)
+		this.y = y + randint(-50, 50)
+		this.size = randint(5, 10)
+		this.gravity = randint(50, 100) / 100
+		this.velocityX = randint(-10, 10)
+		this.velocityY = randint(-10, 0)
+		this.orientation = randint(0, 359)
+		this.rotSpeed = randint(-10, 10)
+		this.opacity = 255
+		this.fadeSpeed = randint(5, 8)
+		switch (skin) {
+			case "red1":
+			case "red2":
+				this.colour = colourTable["red"].map(v => v + randint(-10, 10))
+				break
+			case "purple1":
+			case "purple2":
+				this.colour = colourTable["purple"].map(v => v + randint(-10, 10))
+				break
+			case "grey1":
+			case "grey2":
+				this.colour = colourTable["grey"].map(v => v + randint(-10, 10))
+				break
+			case "green1":
+			case "green2":
+				this.colour = colourTable["green"].map(v => v + randint(-10, 10))
+				break
+			case "blue1":
+			case "blue2":
+				this.colour = colourTable["blue"].map(v => v + randint(-10, 10))
+				break
+			case "slowMo":
+				pick = choice([[78, 52, 46], [239, 154, 154], [171, 139, 99]])
+				this.colour = pick.map(v => v + randint(-10, 10))
+				break
+			case "combo":
+				pick = choice([[179, 112, 57], [62, 39, 35]])
+				this.colour = pick.map(v => v + randint(-10, 10))
+				break
+			case "duration":
+				pick = choice([[207, 216, 220], [38, 50, 56]])
+				this.colour = pick.map(v => v + randint(-10, 10))
+				break
+			case "bomb":
+				pick = choice([[228, 8, 10], [254, 153, 0], [255, 222, 89]])
+				this.colour = pick.map(v => v + randint(-10, 10))
+				break
+			case "boost":
+				this.colour = [130, 119, 23].map(v => v + randint(-10, 10))
+				break
+			default:
+				this.colour = [0, 0, 0]
+				break
+		}
+	}
+
+	draw() {
+		if (currentTime <= slowMo) {
+			this.x -= this.velocityX / 2
+			this.y += this.velocityY / 2
+			this.velocityY += this.gravity / 2
+			this.orientation += this.rotSpeed / 2
+			this.opacity = max(0, this.opacity - (this.fadeSpeed / 2))
+		} else {
+			this.x -= this.velocityX
+			this.y += this.velocityY
+			this.velocityY += this.gravity
+			this.orientation += this.rotSpeed
+			this.opacity = max(0, this.opacity - this.fadeSpeed)
+		}
+
+		translate(this.x, this.y)
+		rotate(this.orientation)
+		translate(-this.x, -this.y)
+		stroke(0, 0)
+		fill(...this.colour, this.opacity)
+		square(this.x, this.y, this.size)
 	}
 }
 
@@ -459,8 +553,7 @@ function generateLists(naughtyNum) {
         let pick = choice(remaining)
         naughtyList.push(pick)
         remaining = remaining.filter(v => v !== pick)
-    }
-    niceList = colours.filter(v => !naughtyList.includes(v))
+    } niceList = colours.filter(v => !naughtyList.includes(v))
 }
 
 function handleList() {
@@ -1026,6 +1119,14 @@ function handlePresents() {
 		present.draw()
 		pop()
 	}
+	if (!ldm) {
+		debrisArr = debrisArr.filter(v => v.opacity !== 0)
+		for (let debris of debrisArr) {
+			push()
+			debris.draw()
+			pop()
+		}
+	} else {debrisArr = []}
 }
 
 function trail(x, y, size) {
