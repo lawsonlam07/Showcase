@@ -784,6 +784,7 @@ const campaign = [
 			presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "duration", "bomb", "bomb"]
 			generateLists(5)
 			campaignGamemode = "timed"
+			timer = currentTime + 60000
 		} else {
 			if (currentTime <= timer) {
 				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
