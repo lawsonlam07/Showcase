@@ -598,7 +598,7 @@ function initiateStory() {
 	slowMo = 0
 	boost = 0
 	combo = 0
-	dayNum = 0 // reset to 0 when done testing
+	dayNum = 0 // remember to reset this to 0 when done testing
 	presentValue = 100
 	startStory = currentTime
 	timer = startStory + 73000
@@ -682,10 +682,10 @@ const campaign = [
 		if (currentTime <= startStory + 4000) {
 			judgement()
 		} else if (currentTime <= startStory + 14000) {
-			let txt = "This time, you'll learn about combos. Combos reward points based on how long it is. You start a combo by slashing presents in quick succession. The doughnut also offers a combo boost."		
+			let txt = "This time, you'll learn about combos. Combos reward points based on how long they are. You start a combo by slashing presents in quick succession. The doughnut also offers a combo boost."		
 			slideShow(txt, "combo")
 		} else if (currentTime <= startStory + 22000) {
-			let txt = "Day 3; this time, the day ends afer you get 10,000 charm. Note that you only get alerted to a combo after it is broken."
+			let txt = "Day 3; this time, the day ends after you get 10,000 charm. Note that you only get alerted to a combo after it is broken."
 			slideShow(txt, "22")
 			campaignGamemode = "score"
 			presentArr = []
@@ -765,19 +765,29 @@ const campaign = [
 		if (currentTime <= startStory + 4000) {
 			judgement()
 		} else if (currentTime <= startStory + 8000) {
+			let txt = "Introducing the stopwatch! In a timed gamemode such as this, it can grant you an few extra seconds..."
+			push()
+			fill(0)
+			strokeWeight(5)
+			stroke(0)
+			rect(windowWidth/2, windowHeight/2, windowWidth*2, windowHeight*2)
+			image(powerUps["duration"], windowWidth/2, windowHeight/2, 51 * windowHeight/51, windowHeight)
+			fill(255)
+			text(txt, windowWidth/2, windowHeight - 150, windowWidth*0.75)
+			pop()		
+		} else if (currentTime <= startStory + 12000) {
 			let txt = "There has been a sudden influx of naughty gifts on Christmas. You know what to do."
 			slideShow(txt, "cut")
-		} else if (currentTime <= startStory + 12000) {
+		} else if (currentTime <= startStory + 16000) {
 			let txt = "It's Christmas. Final Day."
 			slideShow(txt, "25")
-			presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "bomb", "bomb", "bomb"]
+			presentList = [...Object.keys(presents), "slowMo", "combo", "boost", "duration", "bomb", "bomb"]
 			generateLists(5)
-			campaignGamemode = "survival"
-			lives = 3
+			campaignGamemode = "timed"
 		} else {
-			if (lives > 0) {
+			if (currentTime <= timer) {
 				if (!Math.floor(Math.random() * 100)) {randomPresent(false)}
-				handleLives()
+				handleTimer()
 				handleList()
 				handlePowerUps()
 				handlePresents()
@@ -860,7 +870,7 @@ function timedMode() {
 }
 
 function addTime() {
-	if (mode === "timed") {
+	if (mode === "timed" || campaignGamemode === "timed") {
 		specialText = "=> More Time: +3 seconds"
 		mouseText = "+3 Seconds"
 		timer += 3000
