@@ -21,11 +21,11 @@ let naughtyList = []
 let niceList = []
 let colours = ["red", "purple", "grey", "green", "blue"]
 let colourTable = {
-	"red": "#ed1c24",
-	"purple": "#6f3198",
-	"grey": "#b4b4b4",
-	"green": "#a8e61d",
-	"blue": "#00b7ef"
+	"red": [237, 28, 36],
+	"purple": [111, 49, 152],
+	"grey": [180, 180, 180],
+	"green": [168, 230, 29],
+	"blue": [0, 183, 239]
 }
 
 let specialText = ""
@@ -177,7 +177,6 @@ function toggleMute() {
 	muted = !muted
 	if (muted) {songs["xmas"].pause()} else {songs["xmas"].play()}
 }
-
 
 function choice(arr) {
 	let index = Math.floor(Math.random() * arr.length);
@@ -469,16 +468,14 @@ function handleList() {
 	imageMode(CORNER)
 	rectMode(CORNER)
 	strokeWeight(3)
-	stroke("#3b3b3b")
+	stroke(59)
 	image(buttons["list"], windowWidth - 250, 0)
 	for (let i = 0; i < naughtyList.length; i++) {
-		let v = colourTable[naughtyList[i]]
-		fill(v)
+		fill(...colourTable[naughtyList[i]])
 		rect(windowWidth - 210, i*60 + 75, 50, 50)
 	}
 	for (let i = 0; i < niceList.length; i++) {
-		let v = colourTable[niceList[i]]
-		fill(v)
+		fill(...colourTable[niceList[i]])
 		rect(windowWidth - 90, i*60 + 75, 50, 50)
 	}
 	pop()
