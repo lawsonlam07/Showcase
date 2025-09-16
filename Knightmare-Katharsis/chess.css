@@ -25,6 +25,76 @@ html {
   background-position: 50% 50%; */
 }
 
+#game-container {
+  display: block;
+  line-height: 0;
+  position: relative;
+  margin-top: 150px;
+  margin-bottom: 50px;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 5px solid #e8e8e8;
+  /* box-shadow: 0px 0px 20px 20px #fff; */
+  justify-content: center;
+  align-items: center;
+}
+
+#game-thumbnail {
+  image-rendering: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(66%);
+  transition: filter 0.25s ease-in;
+  z-index: 1;
+}
+
+#game-thumbnail:hover {
+  filter: brightness(80%);
+}
+
+#play-nav {
+  cursor: pointer;
+}
+
+#play-button {
+  font-family: "Lucida Console", "Courier Prime", monospace;
+  display: inline-flex;
+  position: absolute;
+  cursor: pointer;
+  left: 50%;
+  top: 50%;
+  gap: 10px;
+  padding: 5px;
+  padding-right: 17px;
+  border-radius: 15px;
+  font-size: 25px;
+  color: #ffe8ff;
+  background-color: #75a7ec;
+  border: none;
+  box-shadow: 0px 0px 3px 3px #0a3b80;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  transition: filter 0.25s ease-in;
+}
+
+#play-button:hover {
+  transition: transform 0.25s ease-out;
+  transform: translate(-50%, -50%) scale(1.1);
+  filter: brightness(110%);
+} 
+
+#play-icon {
+  width: 75px;
+  height: 75px;
+  image-rendering: auto;
+}
+
+#fullscreen-button {
+  display: none;
+}
+
 nav {
   display: none;
 }
