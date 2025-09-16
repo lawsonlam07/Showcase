@@ -1,15 +1,15 @@
 @font-face {
-    font-family: Kode;
+    font-family: "Kode";
     src: url("/Assets/Fonts/Kode Mono.ttf");
 }
 
 @font-face {
-    font-family: Montserrat;
+    font-family: "Montserrat";
     src: url("/Assets/Fonts/Montserrat.ttf");
 }
 
 @font-face {
-    font-family: Quicksand;
+    font-family: "Quicksand";
     src: url("/Assets/Fonts/Quicksand Regular.ttf");
 }
 
@@ -38,7 +38,7 @@ body {
 }
 
 #main-title {
-    font-family: Kode, Courier, monospace;
+    font-family: "Kode", Courier, monospace;
     text-shadow: 2px 2px black;
     color: #CC00FF;
     text-align: center;
@@ -54,7 +54,7 @@ img {
 }
 
 h2, h3 {
-    font-family: Montserrat, Courier, monospace;
+    font-family: "Montserrat", Courier, monospace;
     color: #CC6CE7;
 }
 
@@ -89,7 +89,7 @@ form {
 }
 
 input[type=submit] {
-    font-family: Kode, Courier, monospace;
+    font-family: "Kode", Courier, monospace;
     background-color: #CC00FF;
     width: 100%;
     margin: 8px;
@@ -103,7 +103,7 @@ input[type=submit] {
 }
 
 input[type=text] {
-    font-family: Kode, Courier, monospace;
+    font-family: "Kode", Courier, monospace;
     text-align: inherit;
     background-color: #555;
     width: 100%;

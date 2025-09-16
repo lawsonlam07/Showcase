@@ -1,8 +1,28 @@
+@font-face {
+    font-family: "Ubuntu";
+    src: url("/Assets/Fonts/Ubuntu.ttf");
+}
+
 html {
   background-color: #e6c7ff;
   scroll-behavior: smooth;
   height: 100%;
   width: 100%;
+}
+
+#game {
+  display: none;
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background-image: url("Game/Buttons/background.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 50% 50%; */
 }
 
 nav {
@@ -21,6 +41,7 @@ nav {
 }
 
 h2 {
+  font-family: "Ubuntu", "Roboto", sans-serif;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   display: inline;
