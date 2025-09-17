@@ -33,7 +33,7 @@ let mode = "menu"
 let players = ["Human", "Fortuna", "Astor", "Lazaward", "Aleph"]
 let wPlayer = 1, bPlayer = 1
 let menuPreset = ["Standard", descStandard, [51, 153, 255], [0, 77, 153], [0, 34, 102]]
-let boardColours = [[200, 200, 200], [160, 100, 60]]
+let boardColours = [[204, 148, 252], [100, 52, 172]]
 let colourPickerMode = 0
 let customAdvanced = true
 let customError = false
