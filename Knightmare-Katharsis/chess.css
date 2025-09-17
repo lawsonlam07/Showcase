@@ -4,7 +4,6 @@
 }
 
 html {
-  background-color: #e6c7ff;
   scroll-behavior: smooth;
   height: 100%;
   width: 100%;
@@ -25,16 +24,23 @@ html {
   background-position: 50% 50%; */
 }
 
+#logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 75%;
+}
+
 #game-container {
   display: block;
   line-height: 0;
   position: relative;
-  margin-top: 150px;
   margin-bottom: 50px;
-  width: 75%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
-  border: 5px solid #e8e8e8;
+  /* border: 5px solid #e8e8e8; */
   /* box-shadow: 0px 0px 20px 20px #fff; */
   justify-content: center;
   align-items: center;
@@ -71,9 +77,9 @@ html {
   border-radius: 15px;
   font-size: 25px;
   color: #ffe8ff;
-  background-color: #75a7ec;
+  background-color: #cc94fc;
   border: none;
-  box-shadow: 0px 0px 3px 3px #0a3b80;
+  box-shadow: 0px 0px 3px 3px #6434ac;
   align-items: center;
   transform: translate(-50%, -50%);
   transition: filter 0.25s ease-in;
@@ -93,6 +99,26 @@ html {
 
 #fullscreen-button {
   display: none;
+}
+
+#main-doc {
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0%;
+  width: 100%;
+  background-image: url("/Assets/Images/icon_chess.jpeg");
+  background-size: 5% auto;
+}
+
+#contents {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #e6c7ff;
+  width: 75%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 2.5%;
 }
 
 nav {
@@ -121,13 +147,12 @@ h2 {
   border-left-style: solid;
   border-width: 7px;
   background-color: #d8a8ff;
-  border-color: #9C3FFF;
+  border-color: #9c3fff;
 }
 
 header {
   color: #250c40;
   display: inline;
-  padding: 3px;
   border-radius: 5px;
   border-width: 1px;
   border-bottom-style: solid;
@@ -147,7 +172,7 @@ hr {
   width: 95%;
   border-style: solid;
   padding-top: 15px;
-  border-color: #7D00FF;
+  border-color: #7d00ff;
   border-bottom-width: 0px;
   border-left-width: 0px;
   border-right-width: 0px;
@@ -166,7 +191,7 @@ hr {
   border-style: solid;
   border-width: 5px;
   border-radius: 10px;
-  border-color: #9C3FFF;
+  border-color: #9c3fff;
   transition: border-color 0.5s;
 }
 
@@ -175,6 +200,10 @@ hr {
 }
 
 @media only screen and (min-width: 1000px) {
+  #fullscreen-button {
+    display: inherit;
+  }
+
   #icon-container {
     position: relative;
     text-align: center;
@@ -197,8 +226,14 @@ hr {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  #main-doc {
+    left: 15%;
+    width: 85%;
+  }
   
   nav {
+    z-index: 1000;
     display: block;
     position: fixed;
     width: 15%;
@@ -207,7 +242,8 @@ hr {
     top: 0;
     left: 0;
     text-align: center;
-    border-right-style: dashed;
+    box-shadow: 0px 0px 10px 10px #37135e;
+    /* border-right-style: dashed; */
   }
 
   #nav-list {
@@ -223,7 +259,7 @@ hr {
   }
 
   .nav-link {
-    color: #7D00FF;
+    color: #7d00ff;
     text-decoration: inherit;
     transition: color 0.25s, font-size 0.5s;
   }
@@ -233,11 +269,13 @@ hr {
     font-size: 20px;
   }
 
-  main {
+  /* #main-doc {
     position: relative;
-    width: 84%;
-    left: 16%;
-  }
+    width: 85%;
+    left: 15%;
+    padding: 0px;
+    margin: 0px;
+  } */
 
   p, code {
     width: 50%;
