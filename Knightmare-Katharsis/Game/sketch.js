@@ -14,10 +14,7 @@ let testFENs = [
 	"rn1qkb1r/pp2pppp/2p2n2/5b2/P1pP3N/2N5/1P2PPPP/R1BQKB1R"
 ]
 
-
-// let t1 = new Date().getTime()
-// console.log(new Chess(testFENs[0]).moveTest(1), (new Date().getTime() - t1)/1000)
-
+let activeSounds = []
 let results = []
 let gameCount = 0
 
@@ -141,15 +138,16 @@ function preload() {
 }
 
 function setup() {
-	for (let s in songs) {songs[s].onended(audioHandler)}
+	for (let s in songs) {songs[s].addEventListener("ended", audioHandler)}
 	playlist = shuffle(Object.keys(songs))
 	playingSong = playlist[0]
-	songs[playingSong].play()
+	songs[playingSong].addEventListener("canplaythrough", () => {
+		songs[playingSong].play()
+	})
 
 	createCanvas(windowWidth, windowHeight)
 	textFont(kodeMono)
 	game = new Chess(random(testFENs))
-	//game = new Chess(startFEN, players[3-1], players[3-1])
 
 	backButton = createDiv("Back")
 	backButton.style(menuButtonStyle + `
@@ -292,8 +290,8 @@ function setup() {
 	}
 
 	for (let div in buttons.divs) {
-		let text = buttons.divs[div].html()
-		let properties = `background-color: ${buttons.uColour[text]}; width: ${buttons.width[text]}vw`
+		let txt = buttons.divs[div].html()
+		let properties = `background-color: ${buttons.uColour[txt]}; width: ${buttons.width[txt]}vw`
 		buttons.divs[div].style(menuButtonStyle + properties)
 		buttons.divs[div].class("p5Canvas")
 	}
@@ -316,8 +314,8 @@ function draw() {
 
 	clear()
 
-	for (let song in songs) {songs[song].setVolume(volumeSliders["music"].value())}
-	for (let e in sfx) {sfx[e].setVolume(volumeSliders["sfx"].value())}
+	for (let song in songs) {songs[song].volume = volumeSliders["music"].value()}
+	for (let e in sfx) {sfx[e].volume = volumeSliders["sfx"].value()}
 
 	time = new Date().getTime()
 	decile = min(windowWidth, windowHeight) / 10
@@ -360,6 +358,17 @@ function draw() {
 	transition(clickedTime, transitionDuration, ...currentTransition)
 
 	//botTest(3, 3, 100)
+}
+
+function safePlay(id) {
+	if (volumeSliders["sfx"].value() && activeSounds.length < 3) {
+		sfx[id].play()
+		activeSounds.push(id)
+
+		sfx[id].addEventListener("ended", () => {
+			activeSounds.pop()
+		})
+	}
 }
 
 function audioHandler() {
@@ -472,7 +481,7 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 	textSize(1.5*decile)
 	text(title, windowWidth*0.35, windowHeight*0.15)
 	textSize(decile/4)
-	textAlign(CORNER)
+	textAlign(LEFT)
 	rectMode(CORNERS)
 	strokeWeight(1)
 	if (!customAdvanced || title !== "Custom") {text(desc + "\n\n\n" + descHotkeys, windowWidth*0.7+decile/4, 2.5*decile, windowWidth*0.3-decile/4, decile*7.5)}
@@ -576,7 +585,7 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 		triangle(windowWidth*0.395, decile*8.95, windowWidth*0.395, decile*9.45, windowWidth*0.395 - decile/2, decile*9.45)
 		pop()
 
-		textAlign(CORNER)
+		textAlign(LEFT)
 		text("FEN:", windowWidth*0.025, decile*8.125)
 		text("Side to Move: White", windowWidth*0.025, decile*8.625)
 		textAlign(CENTER)
@@ -906,11 +915,11 @@ function mouseHover() {
 	if (menuDebounce) {
 		if (this.html() === "Back" && backDebounce) {
 			if (buttons.divs["top"].html() !== "Play") {
-				sfx["hover"].play()
+				safePlay("hover")
 				this.style("width: 17vw; left: 82vw; background-color: #F44336")
 			}
 		} else if (mode === "menu") {
-			sfx["hover"].play()
+			safePlay("hover")
 			this.style(`width: ${buttons.width[this.html()] + 10}vw; background-color: ${buttons.vColour[this.html()]}`)
 		}
 	}
@@ -934,7 +943,7 @@ function mouseClickedElement() {
 			case "Play":
 			case "Puzzles":
 			case "Credits":
-				sfx["click1"].play()
+				safePlay("click1")
 				break
 	
 			case "Standard":
@@ -943,7 +952,7 @@ function mouseClickedElement() {
 			case "Classic":
 			case "Rhythm":
 			case "Solo":
-				sfx["click2"].play()
+				safePlay("click2")
 		}
 	}
 
@@ -956,7 +965,7 @@ function mouseClickedElement() {
 		mode = "menu"
 		game.status = "killed"
 		backDebounce = false
-		sfx["back"].play()
+		safePlay("back")
 		if (buttons.divs["top"].html() !== "Play") {
 			let prevButtons = {
 				"top": "Play",
@@ -1337,24 +1346,24 @@ function mousePressed() {
 		if (menuDebounce && windowWidth*0.4225 <= mouseX && mouseX <= windowWidth*0.6225 && decile*7.75 <= mouseY && mouseY <= decile*9.55) {
 			customError = false
 			if (menuPreset[0] === "Custom" && customMenu["fen"].value() == "5rk1/pbpq1ppp/1p1p4/2nP4/2P5/2N1P1B1/PR3PPP/4r1K1") {
-				sfx["error"].play()
+				safePlay("error")
 				customError = true
 				errorMsg = "Cannot start a game while the active side is in check."
 			} else if (menuPreset[0] === "Custom" && customMenu["fen"].value() == "rnbqkbnr/pppppppppppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR") {
-				sfx["error"].play()
+				safePlay("error")
 				customError = true
 				errorMsg = "Invalid FEN string."
 			} else if (menuPreset[0] === "Custom" && customMenu["fen"].value() == "rq3rk1/ppbn1ppp/2p1pn2/3p4/2PP2b1/1P2PNP1/PBQN1PBP/R4RKK") {
-				sfx["error"].play()
+				safePlay("error")
 				customError = true
 				errorMsg = "Each side may only have one king."
 			} else if (menuPreset[0] === "Custom" && customMenu["fen"].value() == "5bnr/4p1pq/4Qpkr/7p/2P4P/8/PP1PPPP1/RNB1KBNR") {
-				sfx["error"].play()
+				safePlay("error")
 				customError = true
 				errorMsg = "The side to move has no legal moves but is not in check, so the game is a draw by stalemate."
 			} else {
 				menuDebounce = false // Start Button
-				sfx["click3"].play()
+				safePlay("click3")
 				clickedTime = time
 				transitionDuration = 1500
 		
@@ -1792,7 +1801,7 @@ class Chess { // Main Section of Code
 		let blackTextPos = this.flip ? 1.85 : 8.85
 		let whiteIconPos = this.flip ? 8 : 1
 		let blackIconPos = this.flip ? 1 : 8
-		textAlign(CORNER)
+		textAlign(LEFT)
 		text(this.whitePlayer, decile*9.25, decile*whiteTextPos)
 		text(this.blackPlayer, decile*9.25, decile*blackTextPos)
 		// image(icons[this.whitePlayer], decile*12.5, decile*whiteIconPos, decile, decile)
@@ -1998,7 +2007,7 @@ class Chess { // Main Section of Code
 			if (puzzleCounter !== false) {
 				puzzleValid.shift()
 				if (!puzzleValid.length) {
-					sfx["correct"].play()
+					safePlay("correct")
 					if (puzzleResults[puzzleCounter] !== false) {puzzleResults[puzzleCounter] = true}
 					if (puzzleCounter < puzzlesData.length-1) {
 						puzzleCounter++
@@ -2022,7 +2031,7 @@ class Chess { // Main Section of Code
 			}
 		} else if (puzzleCounter !== false) {
 			// incorrect solution
-			sfx["error"].play()
+			safePlay("error")
 			puzzleResults[puzzleCounter] = false
 		}
 	}
@@ -2273,7 +2282,7 @@ class Chess { // Main Section of Code
 
 		if (moves.some(v => v[0] === x2 && v[1] === y2) && this.mode === "board") { // Valid Moves
 			if (!query) {
-				sfx["move"].play()
+				safePlay("move")
 				let pieceLocator = locator[piece].filter(v => v[0] !== x1 || v[1] !== y1)
 				let endSquare = this.getNotation(x1, y1)
 				let prevPassant = this.passantHistory[this.passantHistory.length-1]
@@ -2331,7 +2340,7 @@ class Chess { // Main Section of Code
 						notation += this.getNotation(x2, y2) + "=" + promo.toUpperCase()
 
 						if (this.isCheck(...locator[this.turn ? "k" : "K"][0], !this.turn, locator, this.board)) {
-							notation += "+"; if (!query) {sfx["check"].play()}
+							notation += "+"; if (!query) {safePlay("check")}
 						} return [activeBoard, castleArr, locator, notation, passantSquare]
 					}
 				} else if (abs(x2-x1) === 1 && capturedPiece === "#") { // En Passant
@@ -2376,7 +2385,7 @@ class Chess { // Main Section of Code
 			}
 
 			if (this.isCheck(...locator[this.turn ? "k" : "K"][0], !this.turn, locator, activeBoard)) {
-				notation += "+"; if (!query) {sfx["check"].play()}
+				notation += "+"; if (!query) {safePlay("check")}
 			} return [activeBoard, castleArr, locator, notation, passantSquare]
 		} return false
 	} // return [{0}activeBoard, {1}castleArr, {2}locator, {3}notation, {4}passantSquare]
