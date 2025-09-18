@@ -149,9 +149,7 @@ function preload() {
 		"squelch": new Audio("SFX/squelch.mp3"),
 		"click": new Audio("SFX/click.mp3")
 	}
-	songs = {
-		"xmas": new Audio("Songs/It's Christmas!.mp3")
-	}
+	xmas = new Audio("Songs/It's Christmas!.mp3")
 }
 
 function setup() {
@@ -167,8 +165,10 @@ function setup() {
 	randomPresent(true)
 	randomPresent(true)
 
-	songs["xmas"].autoplay = true
-	songs["xmas"].loop = true
+	xmas.loop = true
+	xmas.addEventListener("canplaythrough", () => {
+		xmas.play()
+	})
 }
 
 function safePlay(id) {
@@ -184,7 +184,7 @@ function safePlay(id) {
 
 function toggleMute() {
 	muted = !muted
-	if (muted) {songs["xmas"].pause()} else {songs["xmas"].play()}
+	if (muted) {xmas.pause()} else {xmas.play()}
 }
 
 function randint(lb, ub) {
