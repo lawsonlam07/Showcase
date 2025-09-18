@@ -122,6 +122,17 @@ function preload() {
 		"error": loadSound("SFX/error.mp3"),
 		"back": loadSound("SFX/back.mp3")
 	}
+	// sfx = {
+	// 	"check": new Audio("SFX/check.mp3"),
+	// 	"move": new Audio("SFX/move.mp3"),
+	// 	"hover": new Audio("SFX/menuHover.mp3"),
+	// 	"click1": new Audio("SFX/menuClick1.mp3"),
+	// 	"click2": new Audio("SFX/menuClick2.mp3"),
+	// 	"click3": new Audio("SFX/menuClick3.mp3"),
+	// 	"correct": new Audio("SFX/correct.mp3"),
+	// 	"error": new Audio("SFX/error.mp3"),
+	// 	"back": new Audio("SFX/back.mp3")
+	// }
 	songs = {
 		"Kirara Magic - Checkmate": loadSound("Songs/Checkmate.mp3"),
 		"KLYDIX - Dream Flower": loadSound("Songs/Dream Flower.mp3"),
@@ -134,6 +145,18 @@ function preload() {
 		"F-777 - Stay Tuned": loadSound("Songs/Stay Tuned.mp3"),
 		"BuildCastlesInAir - Untitled Song": loadSound("Songs/Untitled Song.mp3")
 	}
+	// songs = {
+	// 	"Kirara Magic - Checkmate": new Audio("Songs/Checkmate.mp3"),
+	// 	"KLYDIX - Dream Flower": new Audio("Songs/Dream Flower.mp3"),
+	// 	"Tobu - Escape": new Audio("Songs/Escape.mp3"),
+	// 	"Xomu - Last Dance": new Audio("Songs/Last Dance.mp3"),
+	// 	"Sakuzyo - Lost Memory": new Audio("Songs/Lost Memory.mp3"),
+	// 	"EspiDev - Parfait": new Audio("Songs/Parfait.mp3"),
+	// 	"PIKASONIC - Relive": new Audio("Songs/Relive.mp3"),
+	// 	"megawolf77 - Shining Sprinter": new Audio("Songs/Shining Sprinter.mp3"),
+	// 	"F-777 - Stay Tuned": new Audio("Songs/Stay Tuned.mp3"),
+	// 	"BuildCastlesInAir - Untitled Song": new Audio("Songs/Untitled Song.mp3")
+	// }
 	correctImg = loadImage("Icons/correct.png")
 	incorrectImg = loadImage("Icons/incorrect.png")
 	settingsImg = loadImage("Icons/settings.png")

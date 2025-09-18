@@ -21,6 +21,7 @@ let presentValue = 100
 let presentList = []
 let naughtyList = []
 let niceList = []
+let activeSounds = []
 let colours = ["red", "purple", "grey", "green", "blue"]
 let colourTable = {
 	"red": [237, 28, 36],
@@ -137,19 +138,19 @@ function preload() {
 		"sad": loadImage("Story/sad.png")
 	}
 	sfx = {
-		"rip": loadSound("SFX/rip.mp3"),
-		"rip1": loadSound("SFX/rip1.mp3"),
-		"rip2": loadSound("SFX/rip2.mp3"),
-		"ice": loadSound("SFX/ice.mp3"),
-		"break": loadSound("SFX/break.mp3"),
-		"rage": loadSound("SFX/rage.mp3"),
-		"time": loadSound("SFX/time.mp3"),
-		"boom": loadSound("SFX/boom.mp3"),
-		"squelch": loadSound("SFX/squelch.mp3"),
-		"click": loadSound("SFX/click.mp3")
+		"rip": new Audio("SFX/rip.mp3"),
+		"rip1": new Audio("SFX/rip1.mp3"),
+		"rip2": new Audio("SFX/rip2.mp3"),
+		"ice": new Audio("SFX/ice.mp3"),
+		"break": new Audio("SFX/break.mp3"),
+		"rage": new Audio("SFX/rage.mp3"),
+		"time": new Audio("SFX/time.mp3"),
+		"boom": new Audio("SFX/boom.mp3"),
+		"squelch": new Audio("SFX/squelch.mp3"),
+		"click": new Audio("SFX/click.mp3")
 	}
 	songs = {
-		"xmas": loadSound("Songs/It's Christmas!.mp3")
+		"xmas": new Audio("Songs/It's Christmas!.mp3")
 	}
 }
 
@@ -166,12 +167,18 @@ function setup() {
 	randomPresent(true)
 	randomPresent(true)
 
-	songs["xmas"].loop()
+	songs["xmas"].autoplay = true
+	songs["xmas"].loop = true
 }
 
 function safePlay(id) {
-	if (Object.values(sfx).filter(v => v.isPlaying()).length === 0 && !muted) {
+	if (!muted && activeSounds.length < 3) {
 		sfx[id].play()
+		activeSounds.push(id)
+
+		sfx[id].addEventListener("ended", () => {
+			activeSounds.pop()
+		})
 	}
 }
 
