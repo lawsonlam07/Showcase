@@ -1,7 +1,7 @@
 const botApi = new Worker("bots.js")
 botApi.onmessage = (botMove) => {promiseDB = true; game.updateAttributes(game.handleMove(...botMove.data, false))}
 
-const descHotkeys = "You can drag or click to move.\n\nRight click to highlight squares and drag right click to draw arrows.\n\nHotkeys (PC ONLY):\n\n\tX to flip board.\nR to reset board.\nU to undo move.\nLeft Arrow to move back a move.\nRight Arrow to move forward a move.\nUp Arrow to go to the start of a game.\nDown Arrow to go to the end of a game."
+const descHotkeys = "You can drag or click to move.\n\nRight click to highlight squares and drag right click to draw arrows.\n\nHotkeys (PC ONLY):\n\n\tX to flip board.\nR to reset board.\nCtrl+Z to undo move.\nLeft Arrow to move back a move.\nRight Arrow to move forward a move.\nUp Arrow to go to the start of a game.\nDown Arrow to go to the end of a game."
 const descStandard = "Chess with the standard starting position and rules. Play with a friend, or one of the bots!\n\nBefore starting, you can choose who plays as white and black. You must also choose time controls for both players."
 const desc960 = "Chess, but the starting position is random. Play with a friend, or one of the bots!\n\nBefore starting, you can choose who plays as white and black. You must also choose time controls for both players."
 const descCustom = "Chess, but you set up the starting position. Play with a friend, or one of the bots!\n\nBefore starting, you can choose who plays as white and black. You must also choose time controls for both players."
@@ -14,6 +14,8 @@ let testFENs = [
 	"rn1qkb1r/pp2pppp/2p2n2/5b2/P1pP3N/2N5/1P2PPPP/R1BQKB1R"
 ]
 
+let canvasHeight = 0
+let vertBorder = 0
 let activeSounds = []
 let results = []
 let gameCount = 0
@@ -72,24 +74,23 @@ let puzzlesData = [ // {0} FEN String => {1} Move Notation => {2} Bot Moves => {
 let puzzleValid = []
 let puzzleBots = []
 
-
 let menuButtonStyle = `
 	transition: background-color 0.5s, width 0.5s, opacity 0.5s, left 0.5s;
 	font-family: kodeMono, Courier New, Arial, serif;
-	-webkit-text-stroke: black 0.5vh;
-	border-bottom-right-radius: 3vh;
-	border-top-right-radius: 3vh;
+	-webkit-text-stroke: black min(calc(0.5vw/2.05), 0.5vh);
+	border-bottom-right-radius: min(calc(3vw/2.05), 3vh);
+	border-top-right-radius: min(calc(3vw/2.05), 3vh);
 	-webkit-touch-callout: none;
 	position: absolute;
 	padding-right: 2vw;
 	text-align: right;
 	font-weight: bold;
 	user-select: none;
-	font-size: 15vh;
+	font-size: min(calc(15vw/2.05), 15vh);
 	cursor: default;
 	color: #E0E0E0;
 	opacity: 0.9;
-	height: 20vh;
+	height: min(calc(20vw/2.05), 20vh);
 ` 
 
 function preload() {
@@ -145,23 +146,23 @@ function setup() {
 		songs[playingSong].play()
 	})
 
-	createCanvas(windowWidth, windowHeight)
+	createCanvas(windowWidth, canvasHeight)
 	textFont(kodeMono)
 	game = new Chess(random(testFENs))
 
 	backButton = createDiv("Back")
 	backButton.style(menuButtonStyle + `
-		-webkit-text-stroke: black 0.25vh;
-		border-bottom-left-radius: 1vh;
-		border-top-left-radius: 1vh;
+		-webkit-text-stroke: black min(calc(0.25vw/2.05), 0.25vh);
+		border-bottom-left-radius: min(calc(1vw/2.05), 1vh);
+		border-top-left-radius: min(calc(1vw/2.05), 1vh);
 		background-color: #4A4A4A;
 		padding-left: 1vw;
 		text-align: left;
-		font-size: 8vh;
-		height: 10vh;
+		font-size: min(calc(8vw/2.05), 8vh);
+		height: min(calc(10vw/2.05), 10vh);
 		left: 100vw;
 		width: 0vw;
-		top: 5vh;
+		top: calc(min(calc(5vw/2.05), 5vh) + max(0px, calc(50vh - calc(50vw/2.05))));
 	`)
 	buttons = {
 		divs: {
@@ -218,13 +219,13 @@ function setup() {
 			"Credits": "click3"
 		},
 
-		mode: { // is this necessary?
+		mode: {
 			"Play": "game",
 			"Puzzles": "puzzlesMenu",
 			"Credits": "creditsMenu"
 		},
 
-		"Play": { // Menu after button clicked
+		"Play": {
 			"top": "Standard",
 			"middle": "Chess960",
 			"bottom": "Custom"
@@ -285,7 +286,7 @@ function setup() {
 	for (let box in timeInputs) {
 		timeInputs[box].attribute("maxlength", "2")
 		timeInputs[box].style(`font-family: kodeMono, Courier New, Arial, serif; background-color: rgba(0, 0, 0, 0); 
-		font-size: 5vh; border: none; border-radius: 5px; text-align: center; overflow: auto;
+		font-size: min(calc(5vw/2.05), 5vh); border: none; border-radius: 5px; text-align: center; overflow: auto;
 		color: ${box.slice(0, 1) === "w" ? "white" : "black"}`)
 	}
 
@@ -310,7 +311,9 @@ function draw() {
 		transitionDivs["div2"].size(0, 0)
 	}
 
-	resizeCanvas(windowWidth, windowHeight)
+	canvasHeight = min(windowHeight, windowWidth/2.05)
+	vertBorder = (windowHeight - canvasHeight)/2
+	resizeCanvas(windowWidth, canvasHeight)
 
 	clear()
 
@@ -318,18 +321,18 @@ function draw() {
 	for (let e in sfx) {sfx[e].volume = volumeSliders["sfx"].value()}
 
 	time = new Date().getTime()
-	decile = min(windowWidth, windowHeight) / 10
+	decile = min(windowWidth, canvasHeight) / 10
 	background(50)
 
-	buttons.divs["top"].position(0, windowHeight * 0.2)
-	buttons.divs["middle"].position(0, windowHeight * 0.45)
-	buttons.divs["bottom"].position(0, windowHeight * 0.7)
+	buttons.divs["top"].position(0, canvasHeight * 0.2 + vertBorder)
+	buttons.divs["middle"].position(0, canvasHeight * 0.45 + vertBorder)
+	buttons.divs["bottom"].position(0, canvasHeight * 0.7 + vertBorder)
 
 	game.draw()
 
 	if (mode === "start" || time <= backMenuStartTime + 500) {drawMenu(...menuPreset)} else {
 		for (let box in timeInputs) {
-			timeInputs[box].position(-windowWidth, -windowHeight)
+			timeInputs[box].position(-windowWidth, -canvasHeight)
 			timeInputs[box].size(decile*0.75, decile*0.75)
 		}
 	}
@@ -356,8 +359,6 @@ function draw() {
 	if (puzzleCounter !== false || time <= backPuzzlesStartTime + 500) {drawPuzzles()}
 
 	transition(clickedTime, transitionDuration, ...currentTransition)
-
-	//botTest(3, 3, 100)
 }
 
 function safePlay(id) {
@@ -381,13 +382,13 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 	let offset = decile/10
 	let alpha = (mode === "start") ? 255 : 255 - (255 * factor(backMenuStartTime, 500, "sine"))
 
-	timeInputs["wMins"].position(windowWidth*0.1775 - decile*1.45, decile*5.975)
-	timeInputs["wSecs"].position(windowWidth*0.1775 - decile*0.45, decile*5.975)
-	timeInputs["wIncr"].position(windowWidth*0.1775 + decile*0.6, decile*5.975)
+	timeInputs["wMins"].position(windowWidth*0.1775 - decile*1.45, decile*5.975 + vertBorder)
+	timeInputs["wSecs"].position(windowWidth*0.1775 - decile*0.45, decile*5.975 + vertBorder)
+	timeInputs["wIncr"].position(windowWidth*0.1775 + decile*0.6, decile*5.975 + vertBorder)
 
-	timeInputs["bMins"].position(windowWidth*0.5225 - decile*1.45, decile*5.975)
-	timeInputs["bSecs"].position(windowWidth*0.5225 - decile*0.45, decile*5.975)
-	timeInputs["bIncr"].position(windowWidth*0.5225 + decile*0.6, decile*5.975)
+	timeInputs["bMins"].position(windowWidth*0.5225 - decile*1.45, decile*5.975 + vertBorder)
+	timeInputs["bSecs"].position(windowWidth*0.5225 - decile*0.45, decile*5.975 + vertBorder)
+	timeInputs["bIncr"].position(windowWidth*0.5225 + decile*0.6, decile*5.975 + vertBorder)
 
 	for (let box in timeInputs) {
 		timeInputs[box].size(decile*0.75, decile*0.75)
@@ -398,12 +399,12 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 	stroke(0, 0)
 	fill(...colour1, alpha)
 	textAlign(CENTER)
-	rect(0, 0, windowWidth*0.6, windowHeight*0.2)
-	triangle(windowWidth*0.6, 0, windowWidth*0.6, windowHeight*0.2, windowWidth*0.7, windowHeight*0.2)
+	rect(0, 0, windowWidth*0.6, canvasHeight*0.2)
+	triangle(windowWidth*0.6, 0, windowWidth*0.6, canvasHeight*0.2, windowWidth*0.7, canvasHeight*0.2)
 	rectMode(CENTER)
-	rect(windowWidth/2, windowHeight*0.6, windowWidth, windowHeight*0.8)
+	rect(windowWidth/2, canvasHeight*0.6, windowWidth, canvasHeight*0.8)
 	stroke(...colour1, alpha)
-	line(0, windowHeight*0.2, windowWidth, windowHeight*0.2)
+	line(0, canvasHeight*0.2, windowWidth, canvasHeight*0.2)
 	strokeWeight(10)
 
 	fill(...colour2, alpha)
@@ -463,7 +464,7 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 
 
 	fill(...colour1, alpha) // Corner negative triangles
-	triangle(windowWidth, windowHeight*0.2, windowWidth, windowHeight*0.2+decile*0.75, windowWidth-decile*0.75, windowHeight*0.2)
+	triangle(windowWidth, canvasHeight*0.2, windowWidth, canvasHeight*0.2+decile*0.75, windowWidth-decile*0.75, canvasHeight*0.2)
 
 	fill(...colour2, alpha)
 	triangle(windowWidth*0.039, decile*5.06, windowWidth*0.039, decile*4.51, windowWidth*0.06, decile*5.06)
@@ -479,7 +480,7 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 	strokeWeight(3)
 	stroke(0, alpha)
 	textSize(1.5*decile)
-	text(title, windowWidth*0.35, windowHeight*0.15)
+	text(title, windowWidth*0.35, canvasHeight*0.15)
 	textSize(decile/4)
 	textAlign(LEFT)
 	rectMode(CORNERS)
@@ -545,7 +546,7 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 	text("Start!", windowWidth*0.5305, decile*9.075)
 
 	let ratioX = mouseX/windowWidth
-	let ratioY = mouseY/windowHeight
+	let ratioY = mouseY/canvasHeight
 	textSize(decile/3)
 	textAlign(CENTER, CENTER)
 	rectMode(CENTER)
@@ -592,10 +593,10 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 		text("Advanced Settings", windowWidth*0.21, decile*9.125)
 		textAlign(RIGHT)
 		text("Black", windowWidth*0.395, decile*8.625)
-		customMenu["fen"].position(windowWidth*0.075, decile*7.85)
+		customMenu["fen"].position(windowWidth*0.075, decile*7.85 + vertBorder)
 		customMenu["fen"].size(windowWidth*0.3125, decile*0.5)
 		customMenu["fen"].style("background-color: #287E3F")
-		customMenu["side"].position(windowWidth*0.025 + decile*4.2, decile*8.5)
+		customMenu["side"].position(windowWidth*0.025 + decile*4.2, decile*8.5 + vertBorder)
 		customMenu["side"].size((windowWidth*0.395-decile*1.8) - (windowWidth*0.025 + decile*3.85))
 
 		if (customAdvanced) {
@@ -614,16 +615,16 @@ function drawMenu(title, desc, colour1, colour2, colour3) {
 			fill(...colour3, alpha)
 			strokeWeight(0)
 			rect(windowWidth*0.85 - decile*0.025, decile*3, windowWidth*0.3-decile, decile*0.125)
-			customMenu["target"].position(windowWidth*0.7+decile*3.4, decile*3.3)
+			customMenu["target"].position(windowWidth*0.7+decile*3.4, decile*3.3 + vertBorder)
 			customMenu["target"].size(decile/12*5, decile/12*5)			
-			customMenu["fullmoves"].position(windowWidth*0.7+decile*2.4, decile*4.05)
+			customMenu["fullmoves"].position(windowWidth*0.7+decile*2.4, decile*4.05 + vertBorder)
 			customMenu["fullmoves"].size(decile/12*5, decile/12*5)
-			customMenu["halfmoves"].position(windowWidth*0.7+decile*2.4, decile*4.8)
+			customMenu["halfmoves"].position(windowWidth*0.7+decile*2.4, decile*4.8 + vertBorder)
 			customMenu["halfmoves"].size(decile/12*5, decile/12*5)
-			customMenu["w1"].position(windowWidth*0.7+decile*0.75, decile*6.25)
-			customMenu["w2"].position(windowWidth*0.7+decile*0.75, decile*6.75)
-			customMenu["b1"].position(windowWidth-decile*2.25, decile*6.25)
-			customMenu["b2"].position(windowWidth-decile*2.25, decile*6.75)
+			customMenu["w1"].position(windowWidth*0.7+decile*0.75, decile*6.25 + vertBorder)
+			customMenu["w2"].position(windowWidth*0.7+decile*0.75, decile*6.75 + vertBorder)
+			customMenu["b1"].position(windowWidth-decile*2.25, decile*6.25 + vertBorder)
+			customMenu["b2"].position(windowWidth-decile*2.25, decile*6.75 + vertBorder)
 		} else {
 			customMenu["target"].position(-windowWidth, 0)
 			customMenu["halfmoves"].position(-windowWidth, 0)
@@ -742,16 +743,16 @@ function drawCredits() {
 
 function drawSettings() {
 	let alpha = (mode === "settings") ? 255 : 255 - (255 * factor(backSettingsStartTime, 500, "sine"))
-	for (let slider in volumeSliders) {volumeSliders[slider].style(`width: 44vh`)}
+	for (let slider in volumeSliders) {volumeSliders[slider].style(`width: min(calc(44vw/2.05), 44vh);`)}
 	push()
 	rectMode(CENTER)
 	textAlign(CENTER)
 	strokeWeight(0)
 
 	fill(50, alpha)
-	rect(windowWidth/2, windowHeight/2, windowWidth, windowHeight)
+	rect(windowWidth/2, canvasHeight/2, windowWidth, canvasHeight)
 	fill(155, alpha)
-	rect(windowWidth/2, windowHeight/2, windowWidth-decile, decile*9, decile/2)
+	rect(windowWidth/2, canvasHeight/2, windowWidth-decile, decile*9, decile/2)
 
 	fill(125, alpha)
 	rect(decile*3.25, decile*1.4, decile*5, decile*1.25, decile/5, 0, 0, decile/5)
@@ -840,10 +841,10 @@ function drawSettings() {
 	fill(175, alpha)
 	text("Darker\nBoard\nColour", windowWidth/2+decile, decile*3.125)
 
-	settingsBools["legal"].position(decile*1.5, decile*6.25)
-	settingsBools["queen"].position(decile*1.5, decile*6.85)
-	volumeSliders["music"].position(decile, decile*3.5)
-	volumeSliders["sfx"].position(decile, decile*5.5)
+	settingsBools["legal"].position(decile*1.5, decile*6.25 + vertBorder)
+	settingsBools["queen"].position(decile*1.5, decile*6.85 + vertBorder)
+	volumeSliders["music"].position(decile, decile*3.5 + vertBorder)
+	volumeSliders["sfx"].position(decile, decile*5.5 + vertBorder)
 	pop()
 }
 
@@ -858,11 +859,11 @@ function drawColourPicker() {
 	fill(colourSliders["red"].value(), colourSliders["green"].value(), colourSliders["blue"].value(), alpha)
 	rect(windowWidth/2 + offset, decile*3.75, decile*4.5, decile*4.5, decile/3)
 
-	for (let slider in colourSliders) {colourSliders[slider].style(`width: 35vh; accent-color: ${slider}`)}
+	for (let slider in colourSliders) {colourSliders[slider].style(`width: min(calc(35vw/2.05), 35vh); accent-color: ${slider}`)}
 
-	colourSliders["red"].position(windowWidth/2 + offset - decile*2.25, decile*6.25)
-	colourSliders["green"].position(windowWidth/2 + offset - decile*2.25, decile*6.75)
-	colourSliders["blue"].position(windowWidth/2 + offset - decile*2.25, decile*7.25)
+	colourSliders["red"].position(windowWidth/2 + offset - decile*2.25, decile*6.25 + vertBorder)
+	colourSliders["green"].position(windowWidth/2 + offset - decile*2.25, decile*6.75 + vertBorder)
+	colourSliders["blue"].position(windowWidth/2 + offset - decile*2.25, decile*7.25 + vertBorder)
 
 	if (colourPickerMode) {
 		fill(102, 171, 42, alpha)
@@ -1089,32 +1090,32 @@ function transition(start, duration, type, style="linear") {
 	switch (type) {
 		////////// Transition In //////////
 		case "ribbon":
-			let slide = lerp(0, sqrt((windowWidth+windowHeight/2)**2/2), t)
-			transitionDivs["div1"].position(0, -windowWidth*5)
+			let slide = lerp(0, sqrt((windowWidth+canvasHeight/2)**2/2), t)
+			transitionDivs["div1"].position(0, -windowWidth*5 + vertBorder)
 			transitionDivs["div1"].size(slide, windowWidth*10)
 			transitionDivs["div1"].style("background-color: black; transform-origin: 0% 50%; transform: rotate(45deg); opacity: 1")
 
-			transitionDivs["div2"].position(0, windowHeight-windowWidth*5)
+			transitionDivs["div2"].position(0, canvasHeight-windowWidth*5 + vertBorder)
 			transitionDivs["div2"].size(slide, windowWidth*10)
 			transitionDivs["div2"].style("background-color: black; transform-origin: 0% 50%; transform: rotate(-45deg); opacity: 1")
 			break
 
 		case "shutter":
-			let slantAng = atan2(windowWidth, windowHeight)
-			transitionDivs["div1"].position(0, -windowWidth*5)
+			let slantAng = atan2(windowWidth, canvasHeight)
+			transitionDivs["div1"].position(0, -windowWidth*5 + vertBorder)
 			transitionDivs["div1"].size(lerp(0, windowWidth*sin(HALF_PI-slantAng), t), windowWidth*10)
 			transitionDivs["div1"].style(`background-color: black; transform-origin: 0% 50%; transform: rotate(${slantAng}rad); opacity: 1`)
 
-			transitionDivs["div2"].position(windowWidth, windowHeight-windowWidth*5)
+			transitionDivs["div2"].position(windowWidth, canvasHeight-windowWidth*5 + vertBorder)
 			transitionDivs["div2"].size(lerp(0, windowWidth*sin(HALF_PI-slantAng), t), windowWidth*10)
 			transitionDivs["div2"].style(`background-color: black; transform-origin: 0% 50%; transform: rotate(${PI+slantAng}rad); opacity: 1`)
 
-			push(); stroke(col); strokeWeight(3); if (t === 1) {line(0, windowHeight, windowWidth, 0)}; pop()
+			push(); stroke(col); strokeWeight(3); if (t === 1) {line(0, canvasHeight, windowWidth, 0)}; pop()
 			break
 
 		case "drop":
-			transitionDivs["div1"].position(0, 0)
-			transitionDivs["div1"].size(windowWidth, lerp(0, windowHeight, t))
+			transitionDivs["div1"].position(0, vertBorder)
+			transitionDivs["div1"].size(windowWidth, lerp(0, canvasHeight, t))
 			transitionDivs["div1"].style(`background-color: black; transform: rotate(0deg); transform-origin: center;`)
 
 			transitionDivs["div2"].position(0, 0)
@@ -1122,8 +1123,8 @@ function transition(start, duration, type, style="linear") {
 			break
 
 		case "slide":
-			transitionDivs["div1"].position(0, 0)
-			transitionDivs["div1"].size(lerp(0, windowWidth, t), windowHeight)
+			transitionDivs["div1"].position(0, vertBorder)
+			transitionDivs["div1"].size(lerp(0, windowWidth, t), canvasHeight)
 			transitionDivs["div1"].style("background-color: black; transform: rotate(0deg); transform-origin: center; opacity: 1")
 
 			transitionDivs["div2"].position(0, 0)
@@ -1131,8 +1132,8 @@ function transition(start, duration, type, style="linear") {
 			break
 
 		case "fadeIn":
-			transitionDivs["div1"].position(0, 0)
-			transitionDivs["div1"].size(windowWidth, windowHeight)
+			transitionDivs["div1"].position(0, vertBorder)
+			transitionDivs["div1"].size(windowWidth, canvasHeight)
 			transitionDivs["div1"].style(`background-color: black; transform: rotate(0deg); transform-origin: center; opacity: ${t}`)
 
 			transitionDivs["div2"].position(0, 0)
@@ -1141,18 +1142,18 @@ function transition(start, duration, type, style="linear") {
 
 		////////// Transition Out //////////
 		case "pull":
-			transitionDivs["div1"].position(0, 0)
-			transitionDivs["div1"].size(windowWidth/2, lerp(windowHeight, 0, min(t*2, 1)))
+			transitionDivs["div1"].position(0, vertBorder)
+			transitionDivs["div1"].size(windowWidth/2, lerp(canvasHeight, 0, min(t*2, 1)))
 			transitionDivs["div1"].style("background-color: black; transform: rotate(0deg); transform-origin: center; opacity: 1")
 
-			transitionDivs["div2"].position(windowWidth/2, lerp(0, windowHeight, t >= 0.5 ? (t-0.5)*2 : 0))
-			transitionDivs["div2"].size(windowWidth/2, lerp(windowHeight, 0, t >= 0.5 ? (t-0.5)*2 : 0))
+			transitionDivs["div2"].position(windowWidth/2, lerp(0, canvasHeight, t >= 0.5 ? (t-0.5)*2 : 0) + vertBorder)
+			transitionDivs["div2"].size(windowWidth/2, lerp(canvasHeight, 0, t >= 0.5 ? (t-0.5)*2 : 0))
 			transitionDivs["div2"].style("background-color: black; transform: rotate(0deg); transform-origin: center; opacity: 1")
 			break
 
 		case "fadeOut": //// NEEDS RESETTING
-			transitionDivs["div1"].position(0, 0)
-			transitionDivs["div1"].size(windowWidth, windowHeight)
+			transitionDivs["div1"].position(0, vertBorder)
+			transitionDivs["div1"].size(windowWidth, canvasHeight)
 			transitionDivs["div1"].style(`background-color: black; transform: rotate(0deg); transform-origin: center; opacity: ${1-t}`)
 
 			transitionDivs["div2"].position(0, 0)
@@ -1160,8 +1161,8 @@ function transition(start, duration, type, style="linear") {
 			break
 
 		case "lift":
-			transitionDivs["div1"].position(0, 0)
-			transitionDivs["div1"].size(windowWidth, lerp(windowHeight, 0, t))
+			transitionDivs["div1"].position(0, vertBorder)
+			transitionDivs["div1"].size(windowWidth, lerp(canvasHeight, 0, t))
 			transitionDivs["div1"].style("background-color: black; transform: rotate(0deg); transform-origin: center; opacity: 1")
 
 			transitionDivs["div2"].position(0, 0)
@@ -1169,12 +1170,12 @@ function transition(start, duration, type, style="linear") {
 			break
 
 		case "part":
-			transitionDivs["div1"].position(0, 0)
-			transitionDivs["div1"].size(lerp(windowWidth/2, 0, t), windowHeight)
+			transitionDivs["div1"].position(0, vertBorder)
+			transitionDivs["div1"].size(lerp(windowWidth/2, 0, t), canvasHeight)
 			transitionDivs["div1"].style("background-color: black; transform: rotate(0deg); transform-origin: center; opacity: 1")
 
-			transitionDivs["div2"].position(lerp(windowWidth/2, windowWidth, t), 0)
-			transitionDivs["div2"].size(lerp(windowWidth/2, 0, t), windowHeight)
+			transitionDivs["div2"].position(lerp(windowWidth/2, windowWidth, t), vertBorder)
+			transitionDivs["div2"].size(lerp(windowWidth/2, 0, t), canvasHeight)
 			transitionDivs["div2"].style(`background-color: black; transform: rotate(0deg); transform-origin: center; opacity: 1`)
 			break
 	} pop()
@@ -1275,7 +1276,7 @@ function mousePressed() {
 	if (mode === "game") {
 		if (game.status !== "active" && rank === 7 && file === 3) {game.status = "finish"}
 		if (mouseButton === LEFT) {
-			if (windowHeight*0.05 <= mouseY && mouseY <= windowHeight*0.15) { // Utility buttons
+			if (canvasHeight*0.05 <= mouseY && mouseY <= canvasHeight*0.15) { // Utility buttons
 				if (windowWidth*0.65 <= mouseX && mouseX <= windowWidth*0.65+decile) {
 					// Restart
 					game.resetBoard()
@@ -1699,7 +1700,7 @@ class Chess { // Main Section of Code
 			this.drawTimer()
 			this.drawIcons()
 			this.drawUtility()
-			if ((windowWidth/windowHeight) >= 1.85) {this.drawNotation()}
+			if ((windowWidth/canvasHeight) >= 1.85) {this.drawNotation()}
 			if (this.mode === "promo") {this.promotionUI()}
 			if (!["active", "finish", "killed"].includes(this.status) && mode === "game") {this.drawEndScreen()}
 		}
@@ -1777,7 +1778,7 @@ class Chess { // Main Section of Code
 		push()
 		rectMode(CENTER)
 		textAlign(CENTER)
-		textSize(windowHeight*(12.5/100))
+		textSize(canvasHeight*(12.5/100))
 		let whiteTimePos = this.flip ? 6.3 : 4.6
 		let blackTimePos = this.flip ? 4.6 : 6.3
 		let alpha = mode === "game" ? 255 : 255 - (255 * factor(backTime, 500, "sine"))
@@ -1794,7 +1795,7 @@ class Chess { // Main Section of Code
 		push()
 		let alpha = mode === "game" ? 255 : 255 - (255 * factor(backTime, 500, "sine"))
 		textAlign(CENTER)
-		textSize(windowHeight/10)
+		textSize(canvasHeight/10)
 		fill(200, alpha)
 		tint(255, alpha)
 		let whiteTextPos = this.flip ? 8.85 : 1.85
@@ -1817,22 +1818,22 @@ class Chess { // Main Section of Code
 	drawUtility() {
 		push()
 		let alpha = mode === "game" ? 255 : 255 - (255 * factor(backTime, 500, "sine"))
-		textSize(windowHeight/10)
+		textSize(canvasHeight/10)
 		fill(200, alpha)
 		rectMode(CORNER)
-		rect(windowWidth*0.65, windowHeight*0.05, decile, decile, decile/4)
-		rect(windowWidth*0.7, windowHeight*0.05, decile, decile, decile/4)
-		rect(windowWidth*0.75, windowHeight*0.05, decile, decile, decile/4)
-		rect(windowWidth*0.8, windowHeight*0.05, decile, decile, decile/4)
+		rect(windowWidth*0.65, canvasHeight*0.05, decile, decile, decile/4)
+		rect(windowWidth*0.7, canvasHeight*0.05, decile, decile, decile/4)
+		rect(windowWidth*0.75, canvasHeight*0.05, decile, decile, decile/4)
+		rect(windowWidth*0.8, canvasHeight*0.05, decile, decile, decile/4)
 
 
 		textFont("Arial")
 		fill(50, alpha)
 		textAlign(CENTER)
-		text("⟳", windowWidth*0.65+decile/2, windowHeight*0.135)
-		text("⮐", windowWidth*0.7+decile/2, windowHeight*0.15)
-		text("⇅", windowWidth*0.75+decile/2, windowHeight*0.135)
-		text("🗎", windowWidth*0.8+decile/2, windowHeight*0.135)
+		text("⟳", windowWidth*0.65+decile/2, canvasHeight*0.135)
+		text("⮐", windowWidth*0.7+decile/2, canvasHeight*0.15)
+		text("⇅", windowWidth*0.75+decile/2, canvasHeight*0.135)
+		text("🗎", windowWidth*0.8+decile/2, canvasHeight*0.135)
 		pop()
 	}
 
@@ -1841,15 +1842,15 @@ class Chess { // Main Section of Code
 		fill(200)
 		rectMode(CENTER)
 		textAlign(CENTER)
-		textSize(windowHeight*(5/100))
-		let maxDisplay = floor(((windowHeight*0.8)/decile)/0.75 - 2.5)
+		textSize(canvasHeight*(5/100))
+		let maxDisplay = floor(((canvasHeight*0.8)/decile)/0.75 - 2.5)
 		let offset = max(0, ceil(this.move/2) - maxDisplay)
 		let alpha = mode === "game" ? 255 : 255 - (255 * factor(backTime, 500, "sine"))
 		let buttonWidth = decile * 15.25 + (windowWidth - decile * 1.75)
 		let _buttonWidth = decile * 15.25 - (windowWidth - decile * 1.75)
 		push()
 		textStyle(BOLD)
-		textSize(windowHeight*(15/100))
+		textSize(canvasHeight*(15/100))
 		fill(200, alpha)
 		rect(buttonWidth/2 + _buttonWidth*0.5625, decile*(0.75*maxDisplay + 2.5), _buttonWidth*0.33, decile, decile/5)
 		rect(buttonWidth/2 + _buttonWidth*0.1875, decile*(0.75*maxDisplay + 2.5), _buttonWidth*0.33, decile, decile/5)
@@ -1873,15 +1874,15 @@ class Chess { // Main Section of Code
 			let isBlackCurrentMove = this.move === 2*(i+1)
 
 			fill(isWhiteCurrentMove ? 225 : 200, alpha)
-			textSize(windowHeight*((isWhiteCurrentMove ? 5.5 : 5)/100))
+			textSize(canvasHeight*((isWhiteCurrentMove ? 5.5 : 5)/100))
 			text(w, decile * 15.25, decile * (0.75*(i-offset)+2.5))
 
 			fill(isBlackCurrentMove ? 225 : 200, alpha)
-			textSize(windowHeight*((isBlackCurrentMove ? 5.5 : 5)/100))
+			textSize(canvasHeight*((isBlackCurrentMove ? 5.5 : 5)/100))
 			text(b, windowWidth - decile * 1.75, decile * (0.75*(i-offset)+2.5))
 
 			fill(isWhiteCurrentMove || isBlackCurrentMove ? 255 : 200, alpha)
-			textSize(windowHeight*(6/100))
+			textSize(canvasHeight*(6/100))
 			text(i+1+this.moveCount, (decile * 15.25 + (windowWidth - decile * 1.75))/2, decile * (0.75*(i-offset)+2.5))
 		}
 		pop()

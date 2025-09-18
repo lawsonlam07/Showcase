@@ -3,6 +3,10 @@ html, body {
   padding: 0;
   overflow: hidden;
   position: fixed;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  height: 100vh;
 }
 
 canvas {
