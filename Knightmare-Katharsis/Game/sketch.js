@@ -37,6 +37,7 @@ let colourPickerMode = 0
 let customAdvanced = true
 let customError = false
 let errorMsg = null
+let loadingElement = null
 let songCounter = 0
 
 let puzzleCounter = false
@@ -303,7 +304,7 @@ function setup() {
 }
 
 function draw() {
-	let loadingElement = window.parent.document.getElementById("loading")
+	loadingElement = window.parent.document.getElementById("loading")
 	if (loadingElement) {loadingElement.style.display = "none"}
 	document.body.style.backgroundColor = "black"
 	if (mode !== "start") {for (let v in customMenu) {customMenu[v].position(-windowWidth, 0)}}
@@ -347,6 +348,7 @@ function draw() {
 		buttons.divs[div].mouseOut(mouseNotHover)
 		buttons.divs[div].mousePressed(mouseClickedElement)
 	}
+	if (loadingElement && mode === "menu" && buttons.divs["top"].html() === "Play" && backButton.position().x >= windowWidth) {backButton.style("width: 14vw; left: 85vw; opacity: 0.9; background-color: #4A4A4A")}
 	backButton.mouseOver(mouseHover)
 	backButton.mouseOut(mouseNotHover)
 	backButton.mousePressed(mouseClickedElement)
@@ -746,7 +748,7 @@ function drawCredits() {
 
 function drawSettings() {
 	let alpha = (mode === "settings") ? 255 : 255 - (255 * factor(backSettingsStartTime, 500, "sine"))
-	for (let slider in volumeSliders) {volumeSliders[slider].style(`width: min(calc(44vw/2.05), 44vh);`)}
+	for (let slider in volumeSliders) {volumeSliders[slider].style("width: min(calc(44vw/2.05), 44vh);")}
 	push()
 	rectMode(CENTER)
 	textAlign(CENTER)
@@ -915,10 +917,23 @@ function generate960() {
 	return arr960.join("")
 }
 
+function quitGame() {
+	if (loadingElement) {
+		let page = window.parent.document
+		if (page.exitFullscreen) {
+			page.exitFullscreen();
+		} else if (page.webkitExitFullscreen) {
+			page.webkitExitFullscreen();
+		} else if (page.msExitFullscreen) {
+			page.msExitFullscreen();
+		}
+	}
+}
+
 function mouseHover() {
 	if (menuDebounce) {
 		if (this.html() === "Back" && backDebounce) {
-			if (buttons.divs["top"].html() !== "Play") {
+			if (buttons.divs["top"].html() !== "Play" || (loadingElement && mode === "menu" && buttons.divs["top"].html() === "Play")) {
 				safePlay("hover")
 				this.style("width: 17vw; left: 82vw; background-color: #F44336")
 			}
@@ -966,6 +981,7 @@ function mouseClickedElement() {
 		else if (mode === "start") {backMenuStartTime = time}
 		else if (mode === "settings") {backSettingsStartTime = time}
 		else if (buttons.divs["top"].html() === "Secret") {backCreditsStartTime = time; buttons.divs["top"].html("Secret 2: Electric Boogaloo")}
+		else if (loadingElement && mode === "menu" && buttons.divs["top"].html() === "Play") {quitGame()}
 		mode = "menu"
 		game.status = "killed"
 		backDebounce = false
