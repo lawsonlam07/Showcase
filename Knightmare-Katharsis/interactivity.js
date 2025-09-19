@@ -10,6 +10,12 @@ function fullscreen() {
     } else if (page.msRequestFullscreen) {
         page.msRequestFullscreen();
     }
+
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock("landscape").catch((err) => {
+            console.warn("Orientation lock failed (likely due to non-mobile device):", err)
+        })
+    } else {console.warn("Screen Orientation API not supported.")}
 }
 
 function setupImage(e) {
