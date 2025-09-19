@@ -88,6 +88,10 @@ html {
   align-items: center;
   transform: translate(-50%, -50%);
   transition: filter 0.25s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 #play-button:hover {
