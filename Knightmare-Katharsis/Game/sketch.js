@@ -303,6 +303,9 @@ function setup() {
 }
 
 function draw() {
+	let loadingElement = window.parent.document.getElementById("loading")
+	if (loadingElement) {loadingElement.style.display = "none"}
+	document.body.style.backgroundColor = "black"
 	if (mode !== "start") {for (let v in customMenu) {customMenu[v].position(-windowWidth, 0)}}
 	if (time >= clickedTime + transitionDuration) {
 		transitionDivs["div1"].position(0, 0)

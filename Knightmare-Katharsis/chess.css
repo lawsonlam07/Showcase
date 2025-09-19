@@ -17,11 +17,16 @@ html {
   top: 0;
   width: 100vw;
   height: 100vh;
-  /* background-image: url("Game/Buttons/background.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: 50% 50%; */
+}
+
+#loading {
+  z-index: 101;
+  width: 33%;
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #logo {

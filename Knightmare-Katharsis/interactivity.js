@@ -67,5 +67,6 @@ document.addEventListener("keydown", function (e) {
 document.addEventListener("fullscreenchange", () => {
     let isFullscreen = document.fullscreenElement !== null;
     page.style.overflow = isFullscreen ? "hidden" : "visible";
+    document.getElementById("loading").style.display = isFullscreen ? "block" : "none";
     document.getElementById("game").style.display = isFullscreen ? "block" : "none";
 });

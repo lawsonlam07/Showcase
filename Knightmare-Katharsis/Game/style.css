@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   overflow: hidden;
   position: fixed;
-  background-color: black;
+  background-color: #323232;
   display: flex;
   align-items: center;
   height: 100vh;
